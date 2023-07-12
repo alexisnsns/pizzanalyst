@@ -1,4 +1,8 @@
-<form method="POST">
-  {% csrf_token %} {{ form.as_p }}
-  <input type="submit" value="Create Restaurant" />
-</form>
+<div class="container">
+  <h1>Tell us more about your restaurant !</h1>
+
+  <form method="POST">
+    {% csrf_token %} {{ form.as_p }}
+    <input type="submit" value="Create Restaurant" />
+  </form>
+</div>
