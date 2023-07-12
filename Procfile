@@ -1,1 +1,2 @@
-web: gunicorn connectislice.wsgi --log-file -
+release: python manage.py migrate
+web: gunicorn connectislice.wsgi
