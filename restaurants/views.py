@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from restaurants.models import Restaurant
 from .forms import RestaurantForm
+from .models import Restaurant
 
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
@@ -24,15 +25,10 @@ def restaurant_create(request):
 
 # READ
 def restaurant_index(request):
-
     restaurants = Restaurant.objects.all()
-
     context = {
-
         'restaurants': restaurants
-
     }
-
     return render(request, 'restaurant_index.html', context)
 
 # SHOW
@@ -44,6 +40,16 @@ def restaurant_detail(request, pk):
     return render(request, 'restaurant_detail.html', context)
 
 # UPDATE
+def restaurant_update(request, pk):
+    restaurant = get_object_or_404(Restaurant, pk=pk)
+    if request.method == 'POST':
+        form = RestaurantForm(request.POST, instance=restaurant)
+        if form.is_valid():
+            form.save()
+            return redirect('restaurant_detail', pk=pk)
+    else:
+        form = RestaurantForm(instance=restaurant)
+    return render(request, 'restaurant_update.html', {'form': form})
 
 # DELETE
 def restaurant_delete(request, pk):

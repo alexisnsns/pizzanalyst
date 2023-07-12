@@ -1,33 +1,29 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block page_content %}
-<h1>{{ restaurant.name }}</h1>
+{% extends "base.html" %} {% load static %} {% block page_content %}
+<h1>{{ restaurant.name|title }}</h1>
 <div class="row">
-    <div class="col-md-8">
-        <!-- <img src="{% static restaurant.image %}" alt="" width="100%"> -->
-    </div>
-    <div class="col-md-4">
-        <h5>About the restaurant:</h5>
-        <p>{{ restaurant.description }}</p>
-        <br>
-        <h5>address of the place:</h5>
-        <p>{{ restaurant.address }}</p>
-        <h5> is it active:</h5>
-        <p>{{ restaurant.is_active }}</p>
-    </div>
-    <a href="/">get me to main page </a>
+  <div class="col-md-8">
+    <!-- <img src="{% static restaurant.image %}" alt="" width="100%"> -->
+  </div>
+  <div class="col-md-4">
+    <h5>About the restaurant:</h5>
+    <p>{{ restaurant.description }}</p>
+    <br />
+    <h5>address of the place:</h5>
+    <p>{{ restaurant.address }}</p>
+  </div>
+  <a class="btn btn-primary" href="/">get me to main page </a>
 </div>
 
-
-
+{% comment %} DELETE RESTAURANT {% endcomment %}
 <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
   {% csrf_token %}
-  Are you sure you want to delete this item?
-  <input type="submit" value="Yes" />
+  <input type="submit" value="Delete" class="btn btn-danger" />
 </form>
 
-
-
+{% comment %} UPDATE RESTAURANT {% endcomment %}
+<form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
+  {% csrf_token %}
+  <input type="submit" value="Update" class="btn btn-warning" />
+</form>
 
 {% endblock %}

@@ -1,1 +1,12 @@
-{% block page_content %}{% endblock %}
+<html>
+<head>
+    <title>{% block title %}My App{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+      {% block page_content %}
+      {% endblock %}
+    </div>
+</body>
+</html>
