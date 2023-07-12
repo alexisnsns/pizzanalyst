@@ -1,32 +1,33 @@
 {% extends "base.html" %} {% load static %} {% block title %} Connectislice
 {%endblock %} {% block page_content %}
 
-<h1 class="text-center mb-4">Restaurants</h1>
+<div class="container">
+  <h1 class="text-center mb-4">Restaurants</h1>
 
-<div class="row">
-  {% for restaurant in restaurants %}
+  <div class="row">
+    {% for restaurant in restaurants %}
 
-  <div class="col-md-4">
-    <div class="card mb-2">
-      <!-- <img class="card-img-top" src="{% static restaurant.image %}"> -->
-
-      <div class="card-body">
-        <h5 class="card-title">{{ restaurant.name }}</h5>
-
-        <p class="card-text">{{ restaurant.description }}</p>
-
-        <a
-          href="{% url 'restaurant_detail' restaurant.pk %}"
-          class="btn btn-primary"
-        >
-          Show
-        </a>
+    <div class="col-md-4">
+      <div class="card mb-2">
+        <!-- <img class="card-img-top" src="{% static restaurant.image %}"> -->
+        <div class="card-body">
+          <h5 class="card-title">{{ restaurant.name|title }}</h5>
+          <p class="card-text">{{ restaurant.description }}</p>
+          <a
+            href="{% url 'restaurant_detail' restaurant.pk %}"
+            class="btn btn-primary"
+          >
+            Show
+          </a>
+        </div>
       </div>
     </div>
+
+    {% endfor %}
   </div>
 
-  {% endfor %}
-  <a href="restaurants/create"> create new restaurant </a>
+  <div class="text-center">
+    <a href="restaurants/create"> Add a restaurant </a>
+  </div>
 </div>
-
 {% endblock %}
