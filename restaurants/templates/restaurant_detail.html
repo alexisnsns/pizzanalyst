@@ -1,9 +1,12 @@
 {% extends "base.html" %} {% load static %} {% block page_content %}
+
+<a class="btn btn-primary" href="/">get me to main page </a>
+
 <h1>{{ restaurant.name|title }}</h1>
 <div class="row">
   <div class="col-md-8">
     <img src="{{ MEDIA_URL }}frank.jpg">
-      </div>
+  </div>
   <div class="col-md-4">
     <h5>About the restaurant:</h5>
     <p>{{ restaurant.description }}</p>
@@ -15,29 +18,22 @@
     <h5>On a scale from 1 to 5 did users like this restaurant?:</h5>
     <h5>Bang for buck:</h5>
   </div>
-  <a class="btn btn-primary" href="/">get me to main page </a>
+
+    {% comment %} DELETE RESTAURANT {% endcomment %}
+  <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete restaurant" class="btn btn-danger" />
+  </form>
+
+  {% comment %} UPDATE RESTAURANT {% endcomment %}
+  <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Update restaurant" class="btn btn-warning" />
+  </form>
+
 </div>
 
-
-
-
-{% comment %} CREATE COMMENT {% endcomment %}
-
-<a class="btn btn-primary" href="{% url 'comment_create' restaurant.pk %}">
-Add a comment
-</a>
-
-{% comment %} DELETE RESTAURANT {% endcomment %}
-<form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
-  {% csrf_token %}
-  <input type="submit" value="Delete restaurant" class="btn btn-danger" />
-</form>
-
-{% comment %} UPDATE RESTAURANT {% endcomment %}
-<form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
-  {% csrf_token %}
-  <input type="submit" value="Update restaurant" class="btn btn-warning" />
-</form>
+<hr>
 
 
 
@@ -45,14 +41,16 @@ Add a comment
 {% comment %} DISPLAY COMMENTS {% endcomment %}
 
 
-<div class="row">
   {% for comment in restaurant.comments.all %}
   <div class="col-md-4">
     <div class="card mb-2">
       <div class="card-body">
         <h5 class="card-title">{{ comment.username|title }}</h5>
         <p class="card-text">{{ comment.body }}</p>
+        <p class="card-text">{{ comment.quality }} / 5</p>
+        <p class="card-text">{{ comment.cheapestslice }} $</p>
       </div>
+
       <form method="POST" action="{% url 'comment_update' restaurant_pk=restaurant.pk pk=comment.pk %}">
         {% csrf_token %}
         <input type="submit" value="Update comment" class="btn btn-warning" />
@@ -63,12 +61,15 @@ Add a comment
         <input type="submit" value="Delete comment" class="btn btn-danger" />
       </form>
     </div>
-    </div>
   </div>
 
   {% endfor %}
-</div>
 
 
+{% comment %} CREATE COMMENT {% endcomment %}
+
+<a class="btn btn-primary" href="{% url 'comment_create' restaurant.pk %}">
+  Add a comment
+  </a>
 
 {% endblock %}
