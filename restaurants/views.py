@@ -3,6 +3,7 @@ from restaurants.models import Restaurant
 from .forms import RestaurantForm
 from .forms import CommentForm
 from .models import Restaurant
+from .models import Comment
 
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
@@ -37,6 +38,20 @@ def comment_create(request, pk):
     else:
         form = CommentForm(instance=restaurant)
     return render(request, 'comment_create.html', {'form': form})
+
+
+def comment_update(request, restaurant_pk, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('restaurant_detail', pk=restaurant_pk)
+    else:
+        form = RestaurantForm(instance=comment)
+    return render(request, 'comment_update.html', {'form': form, 'restaurant_pk': restaurant_pk})
+
+
 
 # READ
 def restaurant_index(request):

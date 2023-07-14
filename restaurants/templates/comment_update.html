@@ -1,0 +1,7 @@
+<form method="POST" action="{% url 'comment_update' restaurant_pk=restaurant_pk pk=form.instance.pk %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Update Comment">
+</form>
+
+<a href="/">get me to main page </a>
