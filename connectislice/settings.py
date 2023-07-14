@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'cloudinary',
     'restaurants',
 
 ]
@@ -129,3 +130,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://www.anotherproject.me']
+
+import cloudinary
+
+
+# Cloudinary settings
+cloudinary.config(
+    cloud_name='dg7xujo5u',
+    api_key='599328983424529',
+    api_secret='noMN1AQ4cbbtVuHiHEnP6jvTIeg',
+    secure = True
+)
+
+import cloudinary.uploader
+import cloudinary.api
