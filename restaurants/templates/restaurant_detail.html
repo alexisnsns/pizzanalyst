@@ -2,8 +2,8 @@
 <h1>{{ restaurant.name|title }}</h1>
 <div class="row">
   <div class="col-md-8">
-    <!-- <img src="{% static restaurant.image %}" alt="" width="100%"> -->
-  </div>
+    <img src="{{ MEDIA_URL }}frank.jpg">
+      </div>
   <div class="col-md-4">
     <h5>About the restaurant:</h5>
     <p>{{ restaurant.description }}</p>
@@ -44,26 +44,31 @@ Add a comment
 
 {% comment %} DISPLAY COMMENTS {% endcomment %}
 
-{% for comment in restaurant.comments.all %}
-<p> Username </p>
-<p>{{ comment.username }}</p>
-<p> Comment </p>
-<p>{{ comment.body }}</p>
-<p> Grade </p>
-<p>{{ comment.quality }}</p>
-<p> Cheapest slice observed: </p>
-<p>{{ comment.cheapestslice }}</p>
 
-<form method="POST" action="{% url 'comment_update' restaurant_pk=restaurant.pk pk=comment.pk %}">
-  {% csrf_token %}
-  <input type="submit" value="Update comment" class="btn btn-warning" />
-</form>
+<div class="row">
+  {% for comment in restaurant.comments.all %}
+  <div class="col-md-4">
+    <div class="card mb-2">
+      <div class="card-body">
+        <h5 class="card-title">{{ comment.username|title }}</h5>
+        <p class="card-text">{{ comment.body }}</p>
+      </div>
+      <form method="POST" action="{% url 'comment_update' restaurant_pk=restaurant.pk pk=comment.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Update comment" class="btn btn-warning" />
+      </form>
 
-<form method="POST" action="{% url 'comment_delete' restaurant_pk=restaurant.pk pk=comment.pk %}">
-  {% csrf_token %}
-  <input type="submit" value="Delete comment" class="btn btn-danger" />
-</form>
+      <form method="POST" action="{% url 'comment_delete' restaurant_pk=restaurant.pk pk=comment.pk %}">
+        {% csrf_token %}
+        <input type="submit" value="Delete comment" class="btn btn-danger" />
+      </form>
+    </div>
+    </div>
+  </div>
 
-{% endfor %}
+  {% endfor %}
+</div>
+
+
 
 {% endblock %}
