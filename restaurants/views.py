@@ -8,10 +8,8 @@ from .models import Comment
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 
-# Create your views here.
 def restaurants(request):
     return render(request, 'restaurants.html', {})
-
 
 # CREATE RESTAURANT
 def restaurant_create(request):
