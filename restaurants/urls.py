@@ -9,4 +9,6 @@ urlpatterns = [
     path('restaurants/<int:pk>/update/', views.restaurant_update, name='restaurant_update'),
     path('<int:pk>/comment/', views.comment_create, name='comment_create'),
     path('<int:restaurant_pk>/comment/<int:pk>/update', views.comment_update, name='comment_update'),
+    path('<int:restaurant_pk>/comment/<int:pk>/delete', views.comment_delete, name='comment_delete'),
+
 ]

@@ -40,6 +40,7 @@ def comment_create(request, pk):
     return render(request, 'comment_create.html', {'form': form})
 
 
+# UPDATE COMMENT
 def comment_update(request, restaurant_pk, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'POST':
@@ -51,9 +52,14 @@ def comment_update(request, restaurant_pk, pk):
         form = RestaurantForm(instance=comment)
     return render(request, 'comment_update.html', {'form': form, 'restaurant_pk': restaurant_pk})
 
+# DELETE COMMENT
+def comment_delete(request, restaurant_pk, pk):
+    restaurant = get_object_or_404(Restaurant, pk=restaurant_pk)
+    comment = get_object_or_404(Comment, pk=pk, restaurant=restaurant)
+    comment.delete()
+    return redirect('restaurant_detail', pk=restaurant_pk)
 
-
-# READ
+# RESTAURANT INDEX
 def restaurant_index(request):
     restaurants = Restaurant.objects.all()
     context = {
