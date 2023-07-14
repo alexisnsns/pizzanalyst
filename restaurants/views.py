@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from restaurants.models import Restaurant
 from .forms import RestaurantForm
+from .forms import CommentForm
 from .models import Restaurant
 
 from django.shortcuts import get_object_or_404, redirect
@@ -11,7 +12,7 @@ def restaurants(request):
     return render(request, 'restaurants.html', {})
 
 
-# CREATE
+# CREATE RESTAURANT
 def restaurant_create(request):
     if request.method == 'POST':
         form = RestaurantForm(request.POST)
@@ -22,6 +23,20 @@ def restaurant_create(request):
         form = RestaurantForm()
     return render(request, 'restaurant_create.html', {'form': form})
 
+
+# CREATE COMMENT
+def comment_create(request, pk):
+    restaurant = Restaurant.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.restaurant = restaurant
+            comment.save()
+            return redirect('restaurant_detail', pk=pk)
+    else:
+        form = CommentForm(instance=restaurant)
+    return render(request, 'comment_create.html', {'form': form})
 
 # READ
 def restaurant_index(request):

@@ -7,12 +7,20 @@
   <div class="col-md-4">
     <h5>About the restaurant:</h5>
     <p>{{ restaurant.description }}</p>
-    <br />
-    <h5>address of the place:</h5>
+    <br>
+    <h5>Address:</h5>
     <p>{{ restaurant.address }}</p>
+    <h5>Cheapest slice (last reported price):</h5>
+    <p>{{ restaurant.comments.last.cheapestslice }}</p>
+    <h5>On a scale from 1 to 5 did users like this restaurant?:</h5>
+    <h5>Bang for buck:</h5>
   </div>
   <a class="btn btn-primary" href="/">get me to main page </a>
 </div>
+
+<a class="btn btn-primary" href="{% url 'comment_create' restaurant.pk %}">
+Add a comment
+</a>
 
 {% comment %} DELETE RESTAURANT {% endcomment %}
 <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
@@ -25,5 +33,15 @@
   {% csrf_token %}
   <input type="submit" value="Update" class="btn btn-warning" />
 </form>
+
+
+{% comment %} DISPLAY COMMENTS {% endcomment %}
+
+{% for comment in restaurant.comments.all %}
+<p>{{ comment.username }}</p>
+<p>{{ comment.body }}</p>
+<p>{{ comment.quality }}</p>
+<p>{{ comment.cheapestslice }}</p>
+{% endfor %}
 
 {% endblock %}
