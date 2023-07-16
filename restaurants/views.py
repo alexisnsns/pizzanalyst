@@ -51,11 +51,10 @@ def comment_update(request, pk):
     return render(request, 'comment_update.html', {'form': form})
 
 # DELETE COMMENT
-def comment_delete(request, restaurant_pk, pk):
-    restaurant = get_object_or_404(Restaurant, pk=restaurant_pk)
-    comment = get_object_or_404(Comment, pk=pk, restaurant=restaurant)
+def comment_delete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
-    return redirect('restaurant_detail', pk=restaurant_pk)
+    return redirect('restaurant_detail', pk=comment.restaurant.pk)
 
 # RESTAURANT INDEX
 def restaurant_index(request):
