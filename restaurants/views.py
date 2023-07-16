@@ -39,16 +39,16 @@ def comment_create(request, pk):
 
 
 # UPDATE COMMENT
-def comment_update(request, restaurant_pk, pk):
+def comment_update(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
             form.save()
-            return redirect('restaurant_detail', pk=restaurant_pk)
+            return redirect('restaurant_detail', pk=comment.restaurant.pk)
     else:
         form = RestaurantForm(instance=comment)
-    return render(request, 'comment_update.html', {'form': form, 'restaurant_pk': restaurant_pk})
+    return render(request, 'comment_update.html', {'form': form})
 
 # DELETE COMMENT
 def comment_delete(request, restaurant_pk, pk):
@@ -73,7 +73,7 @@ def restaurant_detail(request, pk):
     }
     return render(request, 'restaurant_detail.html', context)
 
-# UPDATE
+# RESTAURANT UPDATE
 def restaurant_update(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     if request.method == 'POST':

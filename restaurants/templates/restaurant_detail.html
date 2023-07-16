@@ -51,7 +51,7 @@
         <p class="card-text">{{ comment.cheapestslice }} $</p>
       </div>
 
-      <form method="POST" action="{% url 'comment_update' restaurant_pk=restaurant.pk pk=comment.pk %}">
+      <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
         {% csrf_token %}
         <input type="submit" value="Update comment" class="btn btn-warning" />
       </form>
