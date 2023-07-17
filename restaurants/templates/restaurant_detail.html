@@ -1,8 +1,7 @@
 {% extends "base.html" %} {% load static %} {% block page_content %}
+{% load crispy_forms_tags %}
 
-<a class="btn btn-primary" href="/">get me to main page </a>
-
-<h1>{{ restaurant.name|title }}</h1>
+<h1 class="text-center mb-4 mt-4">{{ restaurant.name|title }}</h1>
 <div class="row">
   <div class="col-md-8">
     <img src="{% static 'frank.jpg' %}" alt="My image", width="100%">
@@ -17,13 +16,6 @@
     <p>{{ restaurant.comments.last.cheapestslice }}</p>
     <h5>On a scale from 1 to 5 did users like this restaurant?:</h5>
     <h5>Bang for buck:</h5>
-  </div>
-
-    {% comment %} DELETE RESTAURANT {% endcomment %}
-  <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
-    {% csrf_token %}
-    <input type="submit" value="Delete restaurant" class="btn btn-danger" />
-  </form>
 
   {% comment %} UPDATE RESTAURANT {% endcomment %}
   <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
@@ -31,6 +23,13 @@
     <input type="submit" value="Update restaurant" class="btn btn-warning" />
   </form>
 
+    {% comment %} DELETE RESTAURANT {% endcomment %}
+  <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Delete restaurant" class="btn btn-danger" />
+  </form>
+
+</div>
 </div>
 
 <hr>
@@ -39,8 +38,6 @@
 
 
 {% comment %} DISPLAY COMMENTS {% endcomment %}
-
-
   {% for comment in restaurant.comments.all %}
   <div class="col-md-4">
     <div class="card mb-2">
@@ -68,23 +65,15 @@
   {% endfor %}
 
 
+{% comment %} CREATE COMMENT {% endcomment %}
 
   <h1>Tell us about your experience at this restaurant !</h1>
   <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Add comment" />
+    {{form|crispy}}
+    <input type="submit" value="Add comment" class="btn btn-primary" />
   </form>
+
+  <a class="btn btn-primary" href="/">get me to main page </a>
+
   {% endblock %}
-
-
-
-
-
-
-
-{% comment %}
-<a class="btn btn-primary" href="{% url 'comment_create' restaurant.pk %}">
-  Add a comment
-  </a>
-{% endcomment %}

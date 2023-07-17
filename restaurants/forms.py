@@ -1,6 +1,5 @@
 from django import forms
-from .models import Restaurant
-from .models import Comment
+from .models import Restaurant, Comment
 
 
 class RestaurantForm(forms.ModelForm):

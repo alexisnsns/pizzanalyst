@@ -36,10 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    'crispy_bootstrap4',
     'django_extensions',
     'cloudinary',
     'restaurants',
-
 ]
 
 MIDDLEWARE = [
@@ -123,12 +124,14 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'restaurants', 'templates')
 
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
 
 
 
 
 import cloudinary
-
 
 # Cloudinary settings
 cloudinary.config(

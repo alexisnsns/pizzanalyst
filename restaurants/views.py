@@ -12,7 +12,8 @@ def restaurant_index(request):
     }
     return render(request, 'restaurant_index.html', context)
 
-# CREATE RESTAURANT
+
+# RESTAURANT CREATE
 def restaurant_create(request):
     if request.method == 'POST':
         form = RestaurantForm(request.POST)
@@ -23,7 +24,7 @@ def restaurant_create(request):
         form = RestaurantForm()
     return render(request, 'restaurant_create.html', {'form': form})
 
-# SHOW RESTAURANT
+# RESTAURANT SHOW
 def restaurant_detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     comments = Comment.objects.filter(restaurant=restaurant)
@@ -46,24 +47,6 @@ def restaurant_detail(request, pk):
 
     return render(request, 'restaurant_detail.html', context)
 
-# UPDATE COMMENT
-def comment_update(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST, instance=comment)
-        if form.is_valid():
-            form.save()
-            return redirect('restaurant_detail', pk=comment.restaurant.pk)
-    else:
-        form = RestaurantForm(instance=comment)
-    return render(request, 'comment_update.html', {'form': form})
-
-# DELETE COMMENT
-def comment_delete(request, pk):
-    comment = get_object_or_404(Comment, pk=pk)
-    comment.delete()
-    return redirect('restaurant_detail', pk=comment.restaurant.pk)
-
 # RESTAURANT UPDATE
 def restaurant_update(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
@@ -76,8 +59,28 @@ def restaurant_update(request, pk):
         form = RestaurantForm(instance=restaurant)
     return render(request, 'restaurant_update.html', {'form': form})
 
-# DELETE
+# RESTAURANT DELETE
 def restaurant_delete(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     restaurant.delete()
     return redirect('restaurant_index')
+
+
+# COMMENT UPDATE
+def comment_update(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('restaurant_detail', pk=comment.restaurant.pk)
+    else:
+        form = CommentForm(instance=comment)
+    return render(request, 'comment_update.html', {'form': form})
+
+# COMMENT DELETE
+def comment_delete(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    comment.delete()
+    return redirect('restaurant_detail', pk=comment.restaurant.pk)

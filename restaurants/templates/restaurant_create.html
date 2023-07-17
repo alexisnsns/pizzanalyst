@@ -1,8 +1,20 @@
+{% extends "base.html" %}  {% block page_content %}
+
+
+{% load crispy_forms_tags %}
+
+
 <div class="container">
   <h1>Tell us more about your restaurant !</h1>
 
   <form method="POST">
-    {% csrf_token %} {{ form.as_p }}
-    <input type="submit" value="Create Restaurant" />
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Create Restaurant" class="btn btn-primary" />
   </form>
+
+
+  <a class="btn btn-primary" href="/"> Back to main page </a>
+
 </div>
+{% endblock %}
