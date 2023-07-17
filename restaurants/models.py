@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Restaurant(models.Model):
@@ -12,3 +13,4 @@ class Comment(models.Model):
     body = models.TextField()
     cheapestslice = models.FloatField(default=0, validators=[MinValueValidator(0)])
     quality = models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(5)])
+    created = models.DateTimeField(auto_now_add=True)

@@ -49,6 +49,9 @@
         <p class="card-text">{{ comment.body }}</p>
         <p class="card-text">{{ comment.quality }} / 5</p>
         <p class="card-text">{{ comment.cheapestslice }} $</p>
+        <p class="card-text">{{ comment.created|date:"j / n / Y" }}</p>
+
+
       </div>
 
       <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
@@ -62,14 +65,26 @@
       </form>
     </div>
   </div>
-
   {% endfor %}
 
 
-{% comment %} CREATE COMMENT {% endcomment %}
 
+  <h1>Tell us about your experience at this restaurant !</h1>
+  <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add comment" />
+  </form>
+  {% endblock %}
+
+
+
+
+
+
+
+{% comment %}
 <a class="btn btn-primary" href="{% url 'comment_create' restaurant.pk %}">
   Add a comment
   </a>
-
-{% endblock %}
+{% endcomment %}

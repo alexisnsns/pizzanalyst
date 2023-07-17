@@ -1,15 +1,16 @@
-from django.shortcuts import render
-from restaurants.models import Restaurant
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import RestaurantForm
 from .forms import CommentForm
 from .models import Restaurant
 from .models import Comment
 
-from django.shortcuts import get_object_or_404, redirect
-from django.views.decorators.http import require_POST
-
-def restaurants(request):
-    return render(request, 'restaurants.html', {})
+# RESTAURANT INDEX
+def restaurant_index(request):
+    restaurants = Restaurant.objects.all()
+    context = {
+        'restaurants': restaurants
+    }
+    return render(request, 'restaurant_index.html', context)
 
 # CREATE RESTAURANT
 def restaurant_create(request):
@@ -22,21 +23,28 @@ def restaurant_create(request):
         form = RestaurantForm()
     return render(request, 'restaurant_create.html', {'form': form})
 
+# SHOW RESTAURANT
+def restaurant_detail(request, pk):
+    restaurant = get_object_or_404(Restaurant, pk=pk)
+    comments = Comment.objects.filter(restaurant=restaurant)
 
-# CREATE COMMENT
-def comment_create(request, pk):
-    restaurant = Restaurant.objects.get(pk=pk)
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.restaurant = restaurant
-            comment.save()
-            return redirect('restaurant_detail', pk=pk)
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.restaurant = restaurant
+                comment.save()
+                return redirect('restaurant_detail', pk=pk)
     else:
-        form = CommentForm(instance=restaurant)
-    return render(request, 'comment_create.html', {'form': form})
+        form = CommentForm(initial={'restaurant': restaurant.pk})
 
+    context = {
+        'restaurant': restaurant,
+        'comments': comments,
+        'form': form,
+    }
+
+    return render(request, 'restaurant_detail.html', context)
 
 # UPDATE COMMENT
 def comment_update(request, pk):
@@ -55,22 +63,6 @@ def comment_delete(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()
     return redirect('restaurant_detail', pk=comment.restaurant.pk)
-
-# RESTAURANT INDEX
-def restaurant_index(request):
-    restaurants = Restaurant.objects.all()
-    context = {
-        'restaurants': restaurants
-    }
-    return render(request, 'restaurant_index.html', context)
-
-# SHOW
-def restaurant_detail(request, pk):
-    restaurant = Restaurant.objects.get(pk=pk)
-    context = {
-        'restaurant': restaurant
-    }
-    return render(request, 'restaurant_detail.html', context)
 
 # RESTAURANT UPDATE
 def restaurant_update(request, pk):
