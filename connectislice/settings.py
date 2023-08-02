@@ -132,6 +132,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Cloudinary settings
 cloudinary.config(
@@ -140,6 +142,3 @@ cloudinary.config(
     api_secret='',
     secure = True
 )
-
-import cloudinary.uploader
-import cloudinary.api

@@ -12,11 +12,10 @@ def restaurant_index(request):
     }
     return render(request, 'restaurant_index.html', context)
 
-
 # RESTAURANT CREATE
 def restaurant_create(request):
     if request.method == 'POST':
-        form = RestaurantForm(request.POST)
+        form = RestaurantForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('restaurant_index')
@@ -43,6 +42,7 @@ def restaurant_detail(request, pk):
         'restaurant': restaurant,
         'comments': comments,
         'form': form,
+        'image_url': restaurant.image.url if restaurant.image else None
     }
 
     return render(request, 'restaurant_detail.html', context)
@@ -64,7 +64,6 @@ def restaurant_delete(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     restaurant.delete()
     return redirect('restaurant_index')
-
 
 # COMMENT UPDATE
 def comment_update(request, pk):

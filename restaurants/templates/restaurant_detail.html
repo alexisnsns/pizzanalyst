@@ -1,11 +1,17 @@
 {% extends "base.html" %} {% load static %} {% block page_content %}
 {% load crispy_forms_tags %}
+{% load cloudinary %}
+
 
 <h1 class="text-center mb-4 mt-4">{{ restaurant.name|title }}</h1>
 <div class="row">
   <div class="col-md-8">
+    {% if image_url %}
+    <img src="{{ image_url }}" alt="restaurant image" width="100%">
+    {% else %}
     <img src="{% static 'frank.jpg' %}" alt="My image", width="100%">
-    </div>
+    {% endif %}
+  </div>
   <div class="col-md-4">
     <h5>About the restaurant:</h5>
     <p>{{ restaurant.description }}</p>
@@ -40,6 +46,7 @@
 <hr>
 
 {% comment %} DISPLAY COMMENTS {% endcomment %}
+<h1 class="text-center mb-4 mt-4"> Comments </h1>
 
   <div class="row">
     {% for comment in restaurant.comments.all %}
