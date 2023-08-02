@@ -39,39 +39,37 @@
 
 <hr>
 
-
-
-
 {% comment %} DISPLAY COMMENTS {% endcomment %}
-  {% for comment in restaurant.comments.all %}
-  <div class="col-md-4">
-    <div class="card mb-2">
-      <div class="card-body">
-        <h5 class="card-title">{{ comment.username|title }}</h5>
-        <p class="card-text">{{ comment.body }}</p>
-        <p class="card-text">{{ comment.quality }} / 5</p>
-        <p class="card-text">{{ comment.cheapestslice }} $</p>
-        <p class="card-text">{{ comment.created|date:"j / n / Y" }}</p>
 
-
+  <div class="row">
+    {% for comment in restaurant.comments.all %}
+    <div class="col-md-4">
+      <div class="card mb-2">
+        <!-- <img class="card-img-top" src="{% static restaurant.image %}"> -->
+        <div class="card-body">
+          <h5 class="card-title">{{ comment.username|title }}</h5>
+          <p class="card-text">{{ comment.body }}</p>
+          <p class="card-text">{{ comment.quality }} / 5</p>
+          <p class="card-text">{{ comment.cheapestslice }} $</p>
+          <p class="card-text">{{ comment.created|date:"j / n / Y" }}</p>
+          <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
+            {% csrf_token %}
+            <input type="submit" value="Update" class="btn btn-warning" />
+          </form>
+          <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn btn-danger" />
+          </form>
+        </div>
       </div>
-
-      <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
-        {% csrf_token %}
-        <input type="submit" value="Update comment" class="btn btn-warning" />
-      </form>
-
-      <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
-        {% csrf_token %}
-        <input type="submit" value="Delete comment" class="btn btn-danger" />
-      </form>
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
+
+
 
 
 {% comment %} CREATE COMMENT {% endcomment %}
-
   <h1>Tell us about your experience at this restaurant !</h1>
   <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
     {% csrf_token %}
