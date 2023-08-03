@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -130,15 +131,14 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 
-
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
-# Cloudinary settings
+load_dotenv()
+
 cloudinary.config(
-    cloud_name='',
-    api_key='',
-    api_secret='',
-    secure = True
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET')
 )
