@@ -23,8 +23,9 @@
     <h5>User average grade:</h5>
     <p>{{ restaurant.average_quality }} / 5</p>
     <h5>Bang for buck:</h5>
+    {% if restaurant.comments.last.cheapestslice %}
     <p>{{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</p>
-
+    {% endif %}
 
   {% comment %} UPDATE RESTAURANT {% endcomment %}
   <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
