@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'cloudinary',
     'restaurants',
-    'mathfilters'
+    'mathfilters',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +144,7 @@ cloudinary.config(
     api_key=os.getenv('CLOUDINARY_API_KEY'),
     api_secret=os.getenv('CLOUDINARY_API_SECRET')
 )
+
+
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
