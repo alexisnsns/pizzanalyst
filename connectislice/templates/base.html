@@ -4,19 +4,13 @@
     <title>{% block title %}Connectislice{% endblock %}</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" >
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.scss' %}">
 </head>
 <body>
-  <a class="btn btn-primary" href="/">Main page </a>
-  {% if user.is_authenticated %}
-    <p>Hello, {{ user.username }}!</p>
-    <p><a href="{% url 'logout' %}">Logout</a></p>
-{% else %}
-    <p><a href="{% url 'register' %}">Register</a></p>
-    <p><a href="{% url 'login' %}">Login</a></p>
-{% endif %}
-    <div class="container">
-      {% block page_content %}
-      {% endblock %}
-    </div>
+  {% include 'shared/navbar.html' %}
+  <div class="container">
+    {% block page_content %}
+    {% endblock %}
+  </div>
 </body>
 </html>
