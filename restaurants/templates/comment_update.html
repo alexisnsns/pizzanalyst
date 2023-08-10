@@ -1,0 +1,14 @@
+{% extends "base.html" %}  {% block page_content %}
+
+
+{% load crispy_forms_tags %}
+<form method="POST" action="{% url 'comment_update' pk=form.instance.pk %}">
+  {% csrf_token %}
+  {{ form|crispy }}
+  {% comment %}     {{ my_formset|crispy }} {% endcomment %}
+  <input type="submit" value="Update Comment" class="btn btn-primary">
+</form>
+
+
+
+{% endblock %}

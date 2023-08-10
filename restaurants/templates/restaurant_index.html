@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% load static %} {% block page_content %}
+
+
+
+<div class="container">
+  <h1 class="text-center mb-4 mt-4">Restaurants</h1>
+
+  <div class="row">
+    {% for restaurant in restaurants %}
+
+    <div class="col-md-4">
+      <div class="card mb-2">
+        <div class="card-body">
+          <h5 class="card-title">{{ restaurant.name|title }}</h5>
+          <p class="card-text">{{ restaurant.description }}</p>
+          <a
+            href="{% url 'restaurant_detail' restaurant.pk %}"
+            class="btn btn-primary"
+          >
+            Show
+          </a>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+  </div>
+
+  <div class="text-center mt-4">
+    <a href="restaurants/create" class="btn btn-primary" > Add a restaurant </a>
+  </div>
+</div>
+{% endblock %}

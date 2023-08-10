@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>{% block title %}Connectislice{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+  <a class="btn btn-primary" href="/">Main page </a>
+  {% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}!</p>
+    <p><a href="{% url 'logout' %}">Logout</a></p>
+{% else %}
+    <p><a href="{% url 'register' %}">Register</a></p>
+    <p><a href="{% url 'login' %}">Login</a></p>
+{% endif %}
+    <div class="container">
+      {% block page_content %}
+      {% endblock %}
+    </div>
+</body>
+</html>
