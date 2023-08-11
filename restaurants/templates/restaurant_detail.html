@@ -26,18 +26,24 @@
     {% if restaurant.comments.last.cheapestslice %}
     <p>{{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</p>
     {% endif %}
+    <p>{{ restaurant.created_by|title }}</p>
+
 
   {% comment %} UPDATE RESTAURANT {% endcomment %}
+  {% if user.is_authenticated and restaurant.created_by == user %}
   <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
     {% csrf_token %}
     <input type="submit" value="Update restaurant" class="btn btn-warning" />
   </form>
+  {% endif %}
 
     {% comment %} DELETE RESTAURANT {% endcomment %}
+  {% if user.is_authenticated and restaurant.created_by == user %}
   <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
     {% csrf_token %}
     <input type="submit" value="Delete restaurant" class="btn btn-danger" />
   </form>
+  {% endif %}
 
 </div>
 </div>
@@ -55,19 +61,26 @@
       <div class="card mb-2">
         <!-- <img class="card-img-top" src="{% static restaurant.image %}"> -->
         <div class="card-body">
-          <h5 class="card-title">{{ comment.username|title }}</h5>
-          <p class="card-text">{{ comment.body }}</p>
+          <h5 class="card-title">{{ comment.created_by|title }}</h5>
+          <p class="card-text">{{ comment.body|title }}</p>
           <p class="card-text">{{ comment.quality }} / 5</p>
           <p class="card-text">{{ comment.cheapestslice }} $</p>
-          <p class="card-text">{{ comment.created|date:"j / n / Y" }}</p>
+          <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
+
+          {% if user.is_authenticated and comment.created_by == user %}
           <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
             {% csrf_token %}
             <input type="submit" value="Update" class="btn btn-warning" />
           </form>
+          {% endif %}
+
+          {% if user.is_authenticated and comment.created_by == user %}
           <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
             {% csrf_token %}
             <input type="submit" value="Delete" class="btn btn-danger" />
           </form>
+          {% endif %}
+
         </div>
       </div>
     </div>

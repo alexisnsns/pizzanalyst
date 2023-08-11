@@ -10,4 +10,4 @@ class RestaurantForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['username', 'body', 'cheapestslice', 'quality']
+        fields = ['body', 'cheapestslice', 'quality']

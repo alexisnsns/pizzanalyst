@@ -3,8 +3,7 @@ from .forms import RestaurantForm
 from .forms import CommentForm
 from .models import Restaurant
 from .models import Comment
-from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.decorators import login_required, permission_required
 
 # RESTAURANT INDEX
 def restaurant_index(request):
@@ -56,8 +55,10 @@ def restaurant_detail(request, pk):
 @login_required
 def restaurant_update(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
+    if not restaurant.user_can_delete(request.user):
+            return redirect('restaurant_detail', pk=pk)
     if request.method == 'POST':
-        form = RestaurantForm(request.POST, instance=restaurant)
+        form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if form.is_valid():
             form.save()
             return redirect('restaurant_detail', pk=pk)
@@ -69,14 +70,19 @@ def restaurant_update(request, pk):
 @login_required
 def restaurant_delete(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
-    restaurant.delete()
-    return redirect('restaurant_index')
+    if not restaurant.user_can_delete(request.user):
+            return redirect('restaurant_detail', pk=pk)
+    if request.method == 'POST':
+        restaurant.delete()
+        return redirect('restaurant_index')  # Replace 'home' with the URL name of your homepage
+
 
 # COMMENT UPDATE
 @login_required
 def comment_update(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-
+    if not comment.user_can_delete(request.user):
+                return redirect('restaurant_detail', pk=comment.restaurant.pk)
     if request.method == 'POST':
         form = CommentForm(request.POST, instance=comment)
         if form.is_valid():
@@ -90,5 +96,8 @@ def comment_update(request, pk):
 @login_required
 def comment_delete(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
-    comment.delete()
+    if not comment.user_can_delete(request.user):
+            return redirect('restaurant_detail', pk=comment.restaurant.pk)
+    if request.method == 'POST':
+        comment.delete()
     return redirect('restaurant_detail', pk=comment.restaurant.pk)

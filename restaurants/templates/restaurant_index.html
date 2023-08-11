@@ -11,7 +11,7 @@
       <div class="card mb-2">
         <div class="card-body">
           <h5 class="card-title">{{ restaurant.name|title }}</h5>
-          <p class="card-text">{{ restaurant.description }}</p>
+          <p class="card-text">{{ restaurant.description|title }}</p>
           <a
             href="{% url 'restaurant_detail' restaurant.pk %}"
             class="btn btn-primary"
