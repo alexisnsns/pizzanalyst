@@ -3,6 +3,8 @@ from .forms import RestaurantForm
 from .forms import CommentForm
 from .models import Restaurant
 from .models import Comment
+from django.contrib.auth.decorators import login_required
+
 
 # RESTAURANT INDEX
 def restaurant_index(request):
@@ -13,12 +15,15 @@ def restaurant_index(request):
     return render(request, 'restaurant_index.html', context)
 
 # RESTAURANT CREATE
+@login_required
 def restaurant_create(request):
     if request.method == 'POST':
         form = RestaurantForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('restaurant_index')
+            restaurant = form.save(commit=False)
+            restaurant.created_by = request.user  # Assign the current user as the creator
+            restaurant.save()
+        return redirect('restaurant_index')
     else:
         form = RestaurantForm()
     return render(request, 'restaurant_create.html', {'form': form})
@@ -48,6 +53,7 @@ def restaurant_detail(request, pk):
     return render(request, 'restaurant_detail.html', context)
 
 # RESTAURANT UPDATE
+@login_required
 def restaurant_update(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     if request.method == 'POST':
@@ -60,12 +66,14 @@ def restaurant_update(request, pk):
     return render(request, 'restaurant_update.html', {'form': form})
 
 # RESTAURANT DELETE
+@login_required
 def restaurant_delete(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     restaurant.delete()
     return redirect('restaurant_index')
 
 # COMMENT UPDATE
+@login_required
 def comment_update(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
 
@@ -79,6 +87,7 @@ def comment_update(request, pk):
     return render(request, 'comment_update.html', {'form': form})
 
 # COMMENT DELETE
+@login_required
 def comment_delete(request, pk):
     comment = get_object_or_404(Comment, pk=pk)
     comment.delete()

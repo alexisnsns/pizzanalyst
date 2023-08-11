@@ -3,14 +3,14 @@
 
 <html>
 <head>
-    <title>Login</title>
+    <title>Sign in</title>
 </head>
 <body>
-    <h1>Login to <i> sliiiice <i></h1>
+    <h1 class='mb-4'>Sign in to <i> sliiiice <i></h1>
     <form method="post">
         {% csrf_token %}
         {{form|crispy}}
-        <input type="submit" value="Log in!" class="btn btn-primary" />
+        <input type="submit" value="Sign in!" class="btn btn-primary" />
     </form>
 </body>
 </html>
