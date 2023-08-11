@@ -9,3 +9,4 @@ django-crispy-forms
 crispy-bootstrap5
 python-dotenv
 django-mathfilters
+django-sass-processor
