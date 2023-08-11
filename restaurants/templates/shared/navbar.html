@@ -1,9 +1,11 @@
+{% load static %}
+
 
 {% block page_content %}
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
-{% comment %} logo {% endcomment %}
+      <img src="{% static 'logo.jpg' %}" alt="logo">
     </a>
     <div class="nav-item-title">
       <a href="/">
@@ -14,10 +16,10 @@
       <ul class="navbar-nav me-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <p>Hello, {{ user.username }}!</p>
+          <p class='px-4'>Hello, {{ user.username|title }}! </p>
         </li>
         <li class="nav-item">
-          <p><a href="{% url 'logout' %}">Logout</a></p>
+          <p><a href="{% url 'logout' %}"  class='px-4'>Logout</a></p>
         </li>
         {% else %}
         <li class="nav-item">

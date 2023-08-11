@@ -1,14 +1,27 @@
-<!DOCTYPE html>
+{% extends "base.html" %} {% load static %} {% block page_content %}
+{% load crispy_forms_tags %}
+
 <html>
 <head>
     <title>Register</title>
 </head>
 <body>
-    <h1>Register</h1>
+    <h1>Register to slice</h1>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
-    </form>
+        {{form|crispy}}
+        <input type="submit" value="Register" class="btn btn-primary" />
+      </form>
 </body>
 </html>
+{% endblock %}
+
+{% comment %}
+<h1>Tell us about your experience at this restaurant !</h1>
+<form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
+  {% csrf_token %}
+  {{form|crispy}}
+  <input type="submit" value="Add comment" class="btn btn-primary" />
+</form>
+
+{% endblock %} {% endcomment %}

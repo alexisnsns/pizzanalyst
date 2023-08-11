@@ -1,5 +1,9 @@
+
+
 $navbar-height: 75px;
-$btn-color: #670AFF;
+$btn-color: #d8504d;
+$primary: #d8504d;
+$secondary: #ffda54;
 
 .navbar-lewagon {
   justify-content: space-between;
@@ -17,7 +21,6 @@ $btn-color: #670AFF;
 
 .navbar-lewagon .navbar-brand img {
   width: 130px;
-  left: -68px;
   position: relative;
 }
 
@@ -37,26 +40,14 @@ $btn-color: #670AFF;
   border-radius: 5px;
 }
 
-
 .nav-item-title {
   position: absolute;
-  left: 90px;
-  top: 18px;
+  left: 10em;
 }
 
 .nav-item-title h2 {
   line-height: 25px;
 }
-
-.test {
-  color: beige;
-}
-
-
-
-
-
-
 
 
 a {
@@ -73,7 +64,7 @@ a:visited {
 
 a:hover {
   text-decoration: none;
-  color: $btn-color;
+  color: $secondary;
 }
 
 a:active {
