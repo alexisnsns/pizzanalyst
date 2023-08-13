@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'restaurants',
     'mathfilters',
     'accounts',
+    'fontawesomefree',
     'sass_processor',
 ]
 
