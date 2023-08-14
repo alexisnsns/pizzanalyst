@@ -28,7 +28,6 @@
     {% endif %}
     <p>{{ restaurant.created_by|title }}</p>
 
-
   {% comment %} UPDATE RESTAURANT {% endcomment %}
   {% if user.is_authenticated and restaurant.created_by == user %}
   <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
@@ -48,8 +47,6 @@
 </div>
 </div>
 
-
-
 <hr>
 
 {% comment %} DISPLAY COMMENTS {% endcomment %}
@@ -59,7 +56,7 @@
 {% if restaurant.comments.count != 0 %}
   <div class="row">
     {% for comment in restaurant.comments.all %}
-    <div class="col-md-4">
+    <div class="col-md-3">
       <div class="card mb-2">
         <!-- <img class="card-img-top" src="{% static restaurant.image %}"> -->
         <div class="card-body">
@@ -96,17 +93,20 @@
 
 {% comment %} CREATE COMMENT {% endcomment %}
 {% if user.is_authenticated  %}
-  <h1 class='text-center mt-3'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
-  <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
+  <h1 class='text-center mt-5'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
+
+
+  <div class=''>
+  <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}" class="w-50">
     {% csrf_token %}
     {{form|crispy}}
     <input type="submit" value="Add comment" class="btn btn-primary" />
   </form>
+</div>
   {% else %}
-  <p class='text-center'>
+  <p class='text-center mt-5'>
   <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
   to comment!  </p>
   {% endif %}
-
 
   {% endblock %}

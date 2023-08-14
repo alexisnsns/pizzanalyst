@@ -7,17 +7,16 @@
   <div class="row">
     {% for restaurant in restaurants %}
 
-    <div class="col-md-4">
-      <div class="card mb-2" style="width: 18rem;">
-        {% if image_url %}
-        <img class="card-img-top" src="{{ image_url }}" alt="restaurant image">
+    <div class="col-md-3">
+      <div class="card mb-2" style="width: 16rem;">
+        {% if restaurant.image.url %}
+        <img class="card-img-top" src="{{ restaurant.image.url }}" alt="restaurant image" >
         {% else %}
         <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
         {% endif %}
         <div class="card-body">
           <h5 class="card-title text-center">{{ restaurant.name|title }}</h5>
-          <p class="card-text text-justify overflow-hidden" style="height: 12rem;">{{ restaurant.description|title }}</p>
-
+          <p class="card-text text-justify overflow-hidden" style="height: 5rem; font-size:12px;">{{ restaurant.description|title }}</p>
           <a
             href="{% url 'restaurant_detail' restaurant.pk %}"
             class="btn btn-primary"
