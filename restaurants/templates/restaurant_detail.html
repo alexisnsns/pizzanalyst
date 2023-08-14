@@ -96,7 +96,7 @@
 
 {% comment %} CREATE COMMENT {% endcomment %}
 {% if user.is_authenticated  %}
-  <h1 class='text-center mt-3'>Tell us about your experience at this restaurant !</h1>
+  <h1 class='text-center mt-3'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
   <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
     {% csrf_token %}
     {{form|crispy}}

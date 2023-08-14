@@ -53,6 +53,20 @@ a:active {
 
 
 
+
+.content {
+    overflow: hidden;
+    width:100px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+
+
+
+
+
   {% comment %} FOOTER TO BE DONE ON SEPARATE SHEET {% endcomment %}
 
   .footer {
