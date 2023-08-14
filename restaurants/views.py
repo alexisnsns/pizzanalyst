@@ -20,9 +20,9 @@ def restaurant_create(request):
         form = RestaurantForm(request.POST, request.FILES)
         if form.is_valid():
             restaurant = form.save(commit=False)
-            restaurant.created_by = request.user  # Assign the current user as the creator
+            restaurant.created_by = request.user
             restaurant.save()
-        return redirect('restaurant_index')
+        return redirect('restaurant_detail', pk=restaurant.pk)
     else:
         form = RestaurantForm()
     return render(request, 'restaurant_create.html', {'form': form})
@@ -31,6 +31,8 @@ def restaurant_create(request):
 def restaurant_detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     comments = Comment.objects.filter(restaurant=restaurant)
+
+    mapbox_access_token = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10?access_token=pk.eyJ1IjoiYWxleGlzbnMiLCJhIjoiY2xoaG5zZmkxMGFpajNybDlrdTNseWZxNSJ9.3QS5KtBNtabxKxifVwSkDw'
 
     if request.method == 'POST':
             form = CommentForm(request.POST)
@@ -46,7 +48,8 @@ def restaurant_detail(request, pk):
         'restaurant': restaurant,
         'comments': comments,
         'form': form,
-        'image_url': restaurant.image.url if restaurant.image else None
+        'image_url': restaurant.image.url if restaurant.image else None,
+        'mapbox_access_token': mapbox_access_token
     }
 
     return render(request, 'restaurant_detail.html', context)

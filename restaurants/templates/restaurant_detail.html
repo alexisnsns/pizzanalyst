@@ -3,6 +3,14 @@
 {% load cloudinary %}
 {% load mathfilters %}
 
+
+<html>
+<head>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+<body>
 <h1 class="text-center mb-4 mt-4">{{ restaurant.name|title }}</h1>
 <div class="row">
   <div class="col-md-8">
@@ -26,6 +34,7 @@
     {% if restaurant.comments.last.cheapestslice %}
     <p>{{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</p>
     {% endif %}
+    <h5>Created by:</h5>
     <p>{{ restaurant.created_by|title }}</p>
 
   {% comment %} UPDATE RESTAURANT {% endcomment %}
@@ -51,7 +60,6 @@
 
 {% comment %} DISPLAY COMMENTS {% endcomment %}
 <h1 class="text-center mb-4 mt-4"> Comments </h1>
-
 
 {% if restaurant.comments.count != 0 %}
   <div class="row">
@@ -86,8 +94,8 @@
     {% endfor %}
   </div>
 {% else %}
-<p class='text-center'>No data to slice here {{  user.username|title }}...</p>
-<p class='text-center mb-3'> Be the first to comment!</p>
+  <p class='text-center'>No data to slice here {{  user.username|title }}...</p>
+  <p class='text-center mb-3'> Be the first to comment!</p>
 {% endif %}
 
 
@@ -95,9 +103,8 @@
 {% if user.is_authenticated  %}
   <h1 class='text-center mt-5'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
 
-
   <div class=''>
-  <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}" class="w-50">
+  <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
     {% csrf_token %}
     {{form|crispy}}
     <input type="submit" value="Add comment" class="btn btn-primary" />
@@ -108,5 +115,22 @@
   <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
   to comment!  </p>
   {% endif %}
+
+
+  <div id='map' style='height:400px'></div>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYWxleGlzbnMiLCJhIjoiY2xsYmFlaGJxMDA2YzNlcTVubmVqMXd4aCJ9.2eQsniTr7aJkUsEH0yUh1g';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v10',
+    center: [-77.03, 38.91],
+    zoom: 9,
+    bearing: 180
+});
+  </script>
+</body>
+
+</html>
+
 
   {% endblock %}

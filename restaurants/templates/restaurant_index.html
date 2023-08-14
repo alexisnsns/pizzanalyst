@@ -6,9 +6,10 @@
 
   <div class="row">
     {% for restaurant in restaurants %}
-
     <div class="col-md-3">
+
       <div class="card mb-2" style="width: 16rem;">
+        <a href="{% url 'restaurant_detail' restaurant.pk %}">
         {% if restaurant.image.url %}
         <img class="card-img-top" src="{{ restaurant.image.url }}" alt="restaurant image" >
         {% else %}
@@ -17,13 +18,8 @@
         <div class="card-body">
           <h5 class="card-title text-center">{{ restaurant.name|title }}</h5>
           <p class="card-text text-justify overflow-hidden" style="height: 5rem; font-size:12px;">{{ restaurant.description|title }}</p>
-          <a
-            href="{% url 'restaurant_detail' restaurant.pk %}"
-            class="btn btn-primary"
-          >
-            Show
-          </a>
         </div>
+      </a>
       </div>
     </div>
 
