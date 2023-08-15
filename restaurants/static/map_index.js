@@ -35,7 +35,6 @@ Promise.all(fetchPromises)
       customPin.className = 'custom-marker';
       customPin.style.backgroundImage = `url("${faviconUrl}")`;
 
-      console.log(restaurantsIndexes[index])
       var popupContent = '<h3><a href=" restaurants/' + restaurantsIndexes[index] + '">' + restaurantsNames[index] + '</a></h3>';
 
       var marker = new mapboxgl.Marker(customPin)

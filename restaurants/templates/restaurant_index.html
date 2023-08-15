@@ -3,11 +3,14 @@
 <body>
   <h1 class="text-center mb-4 mt-4">Restaurants</h1>
 
-  <div class="row">
-    {% for restaurant in restaurants %}
-    <div class="col-md-3">
 
-      <div class="card mb-2" style="width: 16rem;">
+  <div class="col-sm">
+    <div class="row">
+      <div class="col-md-7">
+        <div class="row">
+    {% for restaurant in restaurants %}
+    <div class="col-md-4 mb-3">
+      <div class="card" style="width: 12rem;">
         <a href="{% url 'restaurant_detail' restaurant.pk %}">
         {% if restaurant.image.url %}
         <img class="card-img-top" src="{{ restaurant.image.url }}" alt="restaurant image" >
@@ -15,13 +18,12 @@
         <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
         {% endif %}
         <div class="card-body">
-          <h5 class="card-title text-center">{{ restaurant.name|title }}</h5>
+          <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
           <p class="card-text text-justify overflow-hidden" style="height: 5rem; font-size:12px;">{{ restaurant.description|title }}</p>
         </div>
       </a>
       </div>
     </div>
-
     {% endfor %}
   </div>
 
@@ -34,23 +36,24 @@
   <p>
   <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
   to create a restaurant!  </p>
-
   {% endif %}
-  {{ restaurants_names }}
-  {{ restaurants_indexes }}
-
   </div>
+</div>
 
-  <div id='map' style='height:200px' class='w-50'
+<div class="col-md-5">
+  <div id='map' style='height:200px' class='w-100 h-100'
   data-restaurants-names="{{ restaurants_names }}"
   data-favicon-url="{% static 'favicon.ico' %}"
   data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
   data-restaurants-addresses="{{ restaurants_addresses }}"
   data-restaurants-indexes="{{ restaurants_indexes }}"
-
   ></div>
-
   <script src="{% static 'map_index.js' %}"></script>
+
+</div>
+</div>
+</div>
+
 
 
 
