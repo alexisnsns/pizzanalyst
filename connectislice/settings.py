@@ -129,9 +129,6 @@ CSRF_TRUSTED_ORIGINS = ['https://www.anotherproject.me']
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
-env = environ.Env()
-environ.Env.read_env()
-MAPBOX_ACCESS_TOKEN = env('MAPBOX_ACCESS_TOKEN')
 
 import cloudinary
 import cloudinary.uploader

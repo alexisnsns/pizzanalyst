@@ -9,10 +9,23 @@ from environ import Env
 # RESTAURANT INDEX
 def restaurant_index(request):
     restaurants = Restaurant.objects.all()
+    restaurants_addresses = [restaurant.address for restaurant in restaurants]
+    restaurants_names = [restaurant.name.capitalize() for restaurant in restaurants]
+
+    env = Env()
+    env.read_env()
+
     context = {
-        'restaurants': restaurants
+        'restaurants': restaurants,
+        'restaurants_addresses': restaurants_addresses,
+        'restaurants_names': restaurants_names,
+        'MAPBOX_ACCESS_TOKEN': env('MAPBOX_ACCESS_TOKEN')
+
     }
     return render(request, 'restaurant_index.html', context)
+
+
+
 
 # RESTAURANT CREATE
 @login_required
