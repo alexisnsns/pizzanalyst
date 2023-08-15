@@ -11,6 +11,7 @@ def restaurant_index(request):
     restaurants = Restaurant.objects.all()
     restaurants_addresses = [restaurant.address for restaurant in restaurants]
     restaurants_names = [restaurant.name.capitalize() for restaurant in restaurants]
+    restaurants_indexes = [restaurant.id for restaurant in restaurants]
 
     env = Env()
     env.read_env()
@@ -19,6 +20,8 @@ def restaurant_index(request):
         'restaurants': restaurants,
         'restaurants_addresses': restaurants_addresses,
         'restaurants_names': restaurants_names,
+        'restaurants_indexes': restaurants_indexes,
+
         'MAPBOX_ACCESS_TOKEN': env('MAPBOX_ACCESS_TOKEN')
 
     }

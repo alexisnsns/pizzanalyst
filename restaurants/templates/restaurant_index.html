@@ -37,6 +37,8 @@
 
   {% endif %}
   {{ restaurants_names }}
+  {{ restaurants_indexes }}
+
   </div>
 
   <div id='map' style='height:200px' class='w-50'
@@ -44,6 +46,8 @@
   data-favicon-url="{% static 'favicon.ico' %}"
   data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
   data-restaurants-addresses="{{ restaurants_addresses }}"
+  data-restaurants-indexes="{{ restaurants_indexes }}"
+
   ></div>
 
   <script src="{% static 'map_index.js' %}"></script>
