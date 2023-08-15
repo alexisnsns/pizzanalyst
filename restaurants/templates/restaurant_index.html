@@ -3,14 +3,13 @@
 <body>
   <h1 class="text-center mb-4 mt-4">Restaurants</h1>
 
-
   <div class="col-sm">
     <div class="row">
       <div class="col-md-7">
-        <div class="row">
-    {% for restaurant in restaurants %}
-    <div class="col-md-4 mb-3">
-      <div class="card" style="width: 12rem;">
+        <div class="row row-cols-1 row-cols-md-3">
+              {% for restaurant in restaurants %}
+              <div class="col mb-3">
+                      <div class="card" style="width: 12rem;">
         <a href="{% url 'restaurant_detail' restaurant.pk %}">
         {% if restaurant.image.url %}
         <img class="card-img-top" src="{{ restaurant.image.url }}" alt="restaurant image" >
@@ -30,31 +29,29 @@
 
 
   <div class="text-center mt-4">
-  {% if user.is_authenticated %}
-    <a href="restaurants/create" class="btn btn-secondary" > Add a restaurant </a>
-  {% else %}
-  <p>
-  <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
-  to create a restaurant!  </p>
-  {% endif %}
+    {% if user.is_authenticated %}
+      <a href="restaurants/create" class="btn btn-secondary" > Add a restaurant </a>
+    {% else %}
+    <p>
+    <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
+    to create a restaurant!  </p>
+    {% endif %}
   </div>
 </div>
 
 <div class="col-md-5">
-  <div id='map' style='height:200px' class='w-100 h-100'
+  <div id='map' style='height:70vh' class='w-100'
   data-restaurants-names="{{ restaurants_names }}"
   data-favicon-url="{% static 'favicon.ico' %}"
   data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
   data-restaurants-addresses="{{ restaurants_addresses }}"
   data-restaurants-indexes="{{ restaurants_indexes }}"
-  ></div>
-  <script src="{% static 'map_index.js' %}"></script>
-
-</div>
-</div>
-</div>
+  >
+  </div>
 
 
+<script src="{% static 'map_index.js' %}"></script>
+</div>
 
 
 </body>
