@@ -11,3 +11,4 @@ python-dotenv
 django-mathfilters
 django-sass-processor
 fontawesomefree
+django-environ
