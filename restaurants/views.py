@@ -4,6 +4,7 @@ from .forms import CommentForm
 from .models import Restaurant
 from .models import Comment
 from django.contrib.auth.decorators import login_required, permission_required
+from environ import Env
 
 # RESTAURANT INDEX
 def restaurant_index(request):
@@ -32,7 +33,8 @@ def restaurant_detail(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
     comments = Comment.objects.filter(restaurant=restaurant)
 
-    mapbox_access_token = 'https://api.mapbox.com/styles/v1/mapbox/streets-v10?access_token=pk.eyJ1IjoiYWxleGlzbnMiLCJhIjoiY2xoaG5zZmkxMGFpajNybDlrdTNseWZxNSJ9.3QS5KtBNtabxKxifVwSkDw'
+    env = Env()
+    env.read_env()
 
     if request.method == 'POST':
             form = CommentForm(request.POST)
@@ -49,7 +51,7 @@ def restaurant_detail(request, pk):
         'comments': comments,
         'form': form,
         'image_url': restaurant.image.url if restaurant.image else None,
-        'mapbox_access_token': mapbox_access_token
+        'MAPBOX_ACCESS_TOKEN': env('MAPBOX_ACCESS_TOKEN')
     }
 
     return render(request, 'restaurant_detail.html', context)

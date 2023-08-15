@@ -50,3 +50,8 @@ a:hover {
 
 a:active {
   text-decoration: none; }
+
+.custom-marker {
+  width: 40px;
+  height: 40px;
+  background-size: cover; }

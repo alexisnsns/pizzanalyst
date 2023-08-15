@@ -117,16 +117,53 @@
   {% endif %}
 
 
-  <div id='map' style='height:400px'></div>
+  <div id='map' style='height:400px' class='w-50'></div>
+
   <script>
-  mapboxgl.accessToken = 'pk.eyJ1IjoiYWxleGlzbnMiLCJhIjoiY2xsYmFlaGJxMDA2YzNlcTVubmVqMXd4aCJ9.2eQsniTr7aJkUsEH0yUh1g';
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v10',
-    center: [-77.03, 38.91],
-    zoom: 9,
-    bearing: 180
-});
+    mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN }}';
+    var restaurantAddress = '{{ restaurant.address }}';
+    var restaurantName = '{{ restaurant.name }}';
+    var restaurantDescription = '{{ restaurant.description }}';
+
+    var customPin = document.createElement('div');
+    customPin.className = 'custom-marker';
+    customPin.style.backgroundImage = 'url("{% static "favicon.ico" %}")'
+
+
+
+    fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${restaurantAddress}.json?access_token=${mapboxgl.accessToken}`)
+      .then(response => response.json())
+      .then(data => {
+        // Get the first result's coordinates
+        var coordinates = data.features[0].center;
+
+        // Initialize the map with the new center
+        var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/streets-v12',
+          center: coordinates, // Use the fetched coordinates here
+          zoom: 14,
+        });
+
+        // Create a GeoJSON object for the pinpoint
+        var geojson = {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: coordinates
+          },
+          properties: {
+            title: restaurantName,
+            description: restaurantDescription
+          }
+        };
+
+        // Create a new marker and set popup
+        new mapboxgl.Marker(customPin)
+        .setLngLat(coordinates) // Use the fetched coordinates here
+        .setPopup(new mapboxgl.Popup().setHTML('<h3>' + geojson.properties.title + '</h3><p>' + geojson.properties.description + '</p>')) // Customize the popup content
+        .addTo(map);
+      });
   </script>
 </body>
 
