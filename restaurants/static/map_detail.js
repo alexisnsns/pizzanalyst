@@ -1,4 +1,4 @@
-// access token is passed from the view to the template 
+// access token is passed from the view to the template
 mapboxgl.accessToken = document.getElementById('map').getAttribute('data-mapbox-access-token');
 
 // get variables from template

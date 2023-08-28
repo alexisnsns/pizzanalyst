@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% block page_content %}
 {% load crispy_forms_tags %}
-{% load static %}
 
 
 
 <div class="container">
 
-  <h1> Update your restaurant </h1>
+  <h1> Update {{ restaurant.name|title }}
+  </h1>
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   {{ form|crispy }}

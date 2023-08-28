@@ -76,8 +76,10 @@ def restaurant_detail(request, pk):
 @login_required
 def restaurant_update(request, pk):
     restaurant = get_object_or_404(Restaurant, pk=pk)
+
     if not restaurant.user_can_delete(request.user):
-            return redirect('restaurant_detail', pk=pk)
+        return redirect('restaurant_detail', pk=pk)
+
     if request.method == 'POST':
         form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if form.is_valid():
@@ -85,7 +87,12 @@ def restaurant_update(request, pk):
             return redirect('restaurant_detail', pk=pk)
     else:
         form = RestaurantForm(instance=restaurant)
-    return render(request, 'restaurant_update.html', {'form': form})
+
+    context = {
+        'restaurant': restaurant,
+        'form': form
+    }
+    return render(request, 'restaurant_update.html', context)
 
 # RESTAURANT DELETE
 @login_required
@@ -95,7 +102,7 @@ def restaurant_delete(request, pk):
             return redirect('restaurant_detail', pk=pk)
     if request.method == 'POST':
         restaurant.delete()
-        return redirect('restaurant_index')  # Replace 'home' with the URL name of your homepage
+        return redirect('restaurant_index')
 
 
 # COMMENT UPDATE
