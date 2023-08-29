@@ -70,7 +70,6 @@
     {% for comment in restaurant.comments.all %}
     <div class="col-md-3">
       <div class="card mb-2">
-        <!-- <img class="card-img-top" src="{% static restaurant.image %}"> -->
         <div class="card-body">
           <h5 class="card-title">{{ comment.created_by|title }}</h5>
           <p class="card-text">{{ comment.body|title }}</p>

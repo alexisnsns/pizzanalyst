@@ -4,10 +4,11 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db.models import Avg
 from django.contrib.auth.models import User
 
+
 class Restaurant(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)
-    address = models.CharField(max_length=100, blank=True)
+    address = models.CharField(max_length=100)
     image = CloudinaryField('image', null=True, blank=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE,  default=1)
 

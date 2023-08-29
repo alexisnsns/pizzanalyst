@@ -4,8 +4,21 @@
 {% load crispy_forms_tags %}
 <form method="POST" action="{% url 'comment_update' pk=form.instance.pk %}">
   {% csrf_token %}
-  {{ form|crispy }}
-  {% comment %}     {{ my_formset|crispy }} {% endcomment %}
+  {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if field.name == 'body' %}
+                    <input type="text" class="form-control" name="{{ field.name }}" value="{{ comment.body }}">
+                {% elif field.name == 'cheapestslice' %}
+                    <input type="number" class="form-control" name="{{ field.name }}" value="{{ comment.cheapestslice }}">
+                {% elif field.name == 'quality' %}
+                    <input type="number" class="form-control" name="{{ field.name }}" value="{{ comment.quality }}">
+                {% else %}
+                    {{ field|as_crispy_field }}
+                {% endif %}
+            </div>
+        {% endfor %}
+
   <input type="submit" value="Update Comment" class="btn btn-primary">
 </form>
 

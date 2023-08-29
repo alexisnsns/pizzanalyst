@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% block page_content %}
 {% load crispy_forms_tags %}
+{% block page_content %}
 
 
 
@@ -11,8 +11,26 @@
   </h1>
 <form method="POST" enctype="multipart/form-data">
   {% csrf_token %}
-  {{ form|crispy }}
-  <input type="submit" value="Update Restaurant" class="btn btn-primary"/>
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.name == 'name' %}
+            <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.name }}">
+        {% elif field.name == 'description' %}
+            <textarea class="form-control" name="{{ field.name }}">{{ restaurant.description }}</textarea>
+        {% elif field.name == 'address' %}
+            <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}">
+        {% elif field.name == 'image' %}
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ restaurant.image }}">
+          <label class="custom-file-label" for="{{ field.id_for_label }}"> {{ restaurant.image }}</label>
+      </div>
+        {% else %}
+            {{ field|as_crispy_field }}
+        {% endif %}
+    </div>
+    {% endfor %}
+  </div>  <input type="submit" value="Update Restaurant" class="btn btn-primary"/>
 </form>
 
 

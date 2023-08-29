@@ -89,8 +89,8 @@ def restaurant_update(request, pk):
         form = RestaurantForm(instance=restaurant)
 
     context = {
-        'restaurant': restaurant,
-        'form': form
+        'form': form,
+        'restaurant': restaurant
     }
     return render(request, 'restaurant_update.html', context)
 
@@ -118,7 +118,12 @@ def comment_update(request, pk):
             return redirect('restaurant_detail', pk=comment.restaurant.pk)
     else:
         form = CommentForm(instance=comment)
-    return render(request, 'comment_update.html', {'form': form})
+
+    context = {
+        'comment': comment,
+        'form': form
+    }
+    return render(request, 'comment_update.html', context)
 
 # COMMENT DELETE
 @login_required
