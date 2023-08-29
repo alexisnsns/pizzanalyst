@@ -4,7 +4,20 @@
 {% block page_content %}
 
 
+{% comment %} when i have autofill with mapbox i cannot save the form; dont know why {% endcomment %}
+<head>
+  <script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.17/web.js"></script>
+<script>
+    const script = document.getElementById('search-js');
+    script.onload = function() {
+        mapboxsearch.autofill({
+            accessToken: 'pk.eyJ1IjoiYWxleGlzbnMiLCJhIjoiY2xsYmFlaGJxMDA2YzNlcTVubmVqMXd4aCJ9.2eQsniTr7aJkUsEH0yUh1g'
+        });
+    };
+</script>
+</head>
 
+<body>
 <div class="container">
 
   <h1> Update {{ restaurant.name|title }}
@@ -17,9 +30,10 @@
         {% if field.name == 'name' %}
             <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.name }}">
         {% elif field.name == 'description' %}
-            <textarea class="form-control" name="{{ field.name }}">{{ restaurant.description }}</textarea>
+        <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.description }}">
         {% elif field.name == 'address' %}
             <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}">
+            {% comment %} <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}" autocomplete="address-line1"> {% endcomment %}
         {% elif field.name == 'image' %}
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ restaurant.image }}">
@@ -30,10 +44,12 @@
         {% endif %}
     </div>
     {% endfor %}
-  </div>  <input type="submit" value="Update Restaurant" class="btn btn-primary"/>
+  </div>
+  <input type="submit" value="Update Restaurant" class="btn btn-primary"/>
 </form>
-
-
 </div>
+</body>
+
+
 
 {% endblock %}

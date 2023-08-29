@@ -4,15 +4,36 @@
 {% load static %}
 
 
+
+
 <div class="container">
   <h1>Tell us more about your restaurant !</h1>
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form|crispy }}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {% if field.name == 'name' %}
+            <input type="text" class="form-control" name="{{ field.name }}" >
+        {% elif field.name == 'description' %}
+            <input type="text" class="form-control" name="{{ field.name }}">
+        {% elif field.name == 'address' %}
+            <input name="{{ field.name }}" type="text" class="form-control">
+        {% elif field.name == 'image' %}
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="{{ field.id_for_label }}" name="{{ field.name }}" >
+          <label class="custom-file-label" for="{{ field.id_for_label }}"> Click here to add a picture</label>
+      </div>
+        {% else %}
+            {{ field|as_crispy_field }}
+        {% endif %}
+    </div>
+    {% endfor %}
     <input type="submit" value="Create Restaurant" class="btn btn-primary" />
   </form>
 </div>
+
 
 
 {% endblock %}

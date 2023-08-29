@@ -28,28 +28,6 @@
   margin-right: 2em;
   border-radius: 5px; }
 
-  .btn-sign-up:active {
-  background-color: #d8504d !important;
-  border-color: #d8504d !important;
-  box-shadow: 2px 3px #d8504d !important; ;
-  }
-
-  .btn-login:active {
-    box-shadow: 2px 3px #d8504d !important; ;
-    }
-
-  .btn:active {
-    background-color: #d8504d !important;
-    border-color: #d8504d !important;
-    box-shadow: 2px 3px #d8504d !important; ;
-    }
-
-.btn-primary:active {
-  background-color: #d8504d !important;
-  border-color: #d8504d !important;
-  box-shadow: 2px 3px #d8504d !important; ;
-  }
-
 .nav-item-title {
   position: absolute;
   left: 10em; }
@@ -71,10 +49,11 @@ a:hover {
   color: #ffda54; }
 
 a:active {
-  text-decoration: none;
-}
+  text-decoration: none; }
 
 .custom-marker {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  /* Adjust the size as needed */
+  height: 30px;
+  /* Adjust the size as needed */
   background-size: cover; }
