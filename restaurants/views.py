@@ -28,8 +28,6 @@ def restaurant_index(request):
     return render(request, 'restaurant_index.html', context)
 
 
-
-
 # RESTAURANT CREATE
 @login_required
 def restaurant_create(request):
@@ -57,6 +55,7 @@ def restaurant_detail(request, pk):
             if form.is_valid():
                 comment = form.save(commit=False)
                 comment.restaurant = restaurant
+                comment.created_by = request.user
                 comment.save()
                 return redirect('restaurant_detail', pk=pk)
     else:
