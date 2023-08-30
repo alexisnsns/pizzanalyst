@@ -5,6 +5,7 @@ from .models import Restaurant
 from .models import Comment
 from django.contrib.auth.decorators import login_required, permission_required
 from environ import Env
+from django.views.generic import ListView
 
 # RESTAURANT INDEX
 def restaurant_index(request):
@@ -26,6 +27,51 @@ def restaurant_index(request):
 
     }
     return render(request, 'restaurant_index.html', context)
+
+
+
+
+class SearchView(ListView):
+    model = Restaurant
+    template_name = 'restaurant_index.html'
+    context_object_name = 'all_search_results'
+
+
+
+
+    def get_queryset(self):
+       result = super(SearchView, self).get_queryset()
+       query = self.request.GET.get('search')
+       if query:
+          postresult = Restaurant.objects.filter(name__contains=query)
+          result = postresult
+       else:
+           result = Restaurant.objects.all()
+       return result
+
+    def get_context_data(self, **kwargs):
+        env = Env()
+        env.read_env()
+        context = super().get_context_data(**kwargs)
+        context['MAPBOX_ACCESS_TOKEN'] = env('MAPBOX_ACCESS_TOKEN')
+        context['restaurants'] = Restaurant.objects.all()
+        context['restaurants_addresses'] = [restaurant.address for restaurant in context['restaurants']]
+        context['restaurants_names'] = [restaurant.name.capitalize() for restaurant in context['restaurants']]
+        context['restaurants_indexes'] = [restaurant.id for restaurant in context['restaurants']]
+        
+        return context
+
+    def render_to_response(self, context, **response_kwargs):
+        return self.response_class(
+            request=self.request,
+            template=self.template_name,
+            context=context,
+            **response_kwargs
+        )
+
+
+
+
 
 
 # RESTAURANT CREATE
