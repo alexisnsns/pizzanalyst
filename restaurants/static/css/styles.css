@@ -67,3 +67,15 @@ a:active {
 
 .detail-image {
   border: 1px solid black; }
+
+.footer {
+  font-size: 12px;
+  margin-top: 7%;
+  padding-bottom: 1%; }
+
+.btn-secondary {
+  background-color: #ffda54 !important; }
+
+.btn-secondary:active, .btn-secondary:hover, .btn-secondary:focus {
+  background-color: #ffda54 !important;
+  box-shadow: 1px 1px 2px 1px #d8504d !important; }

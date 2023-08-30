@@ -7,7 +7,7 @@
 
 
 <div class="container">
-  <h1>Tell us more about your restaurant !</h1>
+  <h1 class='mb-5 mt-5'>Tell us more about your restaurant !</h1>
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -30,7 +30,7 @@
         {% endif %}
     </div>
     {% endfor %}
-    <input type="submit" value="Create Restaurant" class="btn btn-primary" />
+    <input type="submit" value="Create Restaurant" class="btn btn-primary mt-2" />
   </form>
 </div>
 
