@@ -28,6 +28,10 @@
   margin-right: 2em;
   border-radius: 5px; }
 
+.btn:active, .btn:visited, .btn:focus {
+  background-color: #d8504d !important;
+  box-shadow: 1px 1px 2px 1px #ffda54 !important; }
+
 .nav-item-title {
   position: absolute;
   left: 10em; }
@@ -57,3 +61,9 @@ a:active {
   height: 30px;
   /* Adjust the size as needed */
   background-size: cover; }
+
+#map {
+  border: 0.5px solid black; }
+
+.detail-image {
+  border: 1px solid black; }

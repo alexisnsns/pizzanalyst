@@ -21,7 +21,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['body', 'cheapestslice', 'quality']
         labels = {
-            'body': 'Share your thoughts:',
-            'cheapestslice': 'Rate the affordability one a one to five scale:',
-            'quality': 'Rate the quality on a one to five scale:',
+            'body': 'What did you think about this restaurant?',
+            'cheapestslice': 'What was the price of the cheapest slice in this restaurant?',
+            'quality': 'Rate the quality of your experience on a one to five scale (1 being the worst quality):',
         }

@@ -4,18 +4,18 @@
 {% block page_content %}
 
 
-{% comment %} when i have autofill with mapbox i cannot save the form; dont know why {% endcomment %}
-<head>
+{% comment %} when i have autofill with mapbox i cannot save the form as it adds address-search to the variable sent {% endcomment %}
+{% comment %} <head>
   <script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.17/web.js"></script>
 <script>
     const script = document.getElementById('search-js');
     script.onload = function() {
         mapboxsearch.autofill({
-            accessToken: 'pk.eyJ1IjoiYWxleGlzbnMiLCJhIjoiY2xsYmFlaGJxMDA2YzNlcTVubmVqMXd4aCJ9.2eQsniTr7aJkUsEH0yUh1g'
+            accessToken: 'ADD ENV LINK HERE'
         });
     };
 </script>
-</head>
+</head> {% endcomment %}
 
 <body>
 <div class="container">
@@ -32,8 +32,8 @@
         {% elif field.name == 'description' %}
         <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.description }}">
         {% elif field.name == 'address' %}
-            <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}">
-            {% comment %} <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}" autocomplete="address-line1"> {% endcomment %}
+            <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}" >
+            {% comment %} autocomplete="address-line1" to add to above field {% endcomment %}
         {% elif field.name == 'image' %}
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ restaurant.image }}">

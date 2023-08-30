@@ -11,9 +11,9 @@
 <div class="row">
   <div class="col-md-6">
     {% if image_url %}
-    <img src="{{ image_url }}" alt="restaurant image" width="100%">
+    <img src="{{ image_url }}" alt="restaurant image" width="100%" class="detail-image">
     {% else %}
-    <img src="{% static 'frank.jpg' %}" alt="My image", width="100%">
+    <img src="{% static 'frank.jpg' %}" alt="My image", width="100%" class="detail-image">
     {% endif %}
   </div>
   <div class="col-md-6">
@@ -22,6 +22,8 @@
     <br>
     <h5>Address:</h5>
     <p>{{ restaurant.address }}</p>
+    <p>{{ restaurant.address_search }}</p>
+
     <div id='map' style='height:200px' class='w-50'
     data-restaurant-address="{{ restaurant.address }}"
     data-restaurant-description="{{ restaurant.description }}"
@@ -71,7 +73,7 @@
       <div class="card mb-2">
         <div class="card-body">
           <h5 class="card-title">{{ comment.created_by|title }}</h5>
-          <p class="card-text">{{ comment.body|title }}</p>
+          <p class="card-text">{{ comment.body }}</p>
           <p class="card-text">{{ comment.quality }} / 5</p>
           <p class="card-text">{{ comment.cheapestslice }} $</p>
           <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
@@ -101,17 +103,48 @@
 {% endif %}
 
 
+<hr>
+
+
 {% comment %} CREATE COMMENT {% endcomment %}
 {% if user.is_authenticated  %}
-  <h1 class='text-center mt-5'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
+  <h1 class='text-center mt-5 mb-4'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
 
-  <div class=''>
-  <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
-    {% csrf_token %}
-    {{form|crispy}}
-    <input type="submit" value="Add comment" class="btn btn-primary" />
-  </form>
-</div>
+  <div class="">
+    <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {% if field.name == 'body' %}
+          <input type="text" class="form-control" name="{{ field.name }}">
+          {% elif field.name == 'quality' %}
+            <select class="form-control" name="{{ field.name }}" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          {% elif field.name == 'cheapestslice' %}
+          <select class="form-control" name="{{ field.name }}" required>
+            <option value="1">Less than $1</option>
+            <option value="2">Between $2 and $3</option>
+            <option value="3">Between $3 and $4</option>
+            <option value="4">Between $4 and $5</option>
+            <option value="5">More than $5</option>
+          </select>
+        {% else %}
+            {{ field|as_crispy_field }}
+          {% endif %}
+        </div>
+      {% endfor %}
+      <input type="submit" value="Add comment" class="btn btn-primary" />
+    </form>
+  </div>
+
+
+
   {% else %}
   <p class='text-center mt-5'>
   <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>

@@ -82,6 +82,7 @@ def restaurant_update(request, pk):
     if request.method == 'POST':
         form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if form.is_valid():
+            restaurant.address = form.cleaned_data['address']  # Update the address field directly
             form.save()
             return redirect('restaurant_detail', pk=pk)
     else:

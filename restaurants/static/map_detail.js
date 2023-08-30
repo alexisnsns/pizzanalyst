@@ -42,6 +42,5 @@ fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${restaurantAddress}.js
     // Create a new marker and set popup
     new mapboxgl.Marker(customPin)
     .setLngLat(coordinates)
-    .setPopup(new mapboxgl.Popup().setHTML('<h3>' + geojson.properties.title + '</h3><p>' + geojson.properties.description + '</p>')) // Customize the popup content
     .addTo(map);
   });
