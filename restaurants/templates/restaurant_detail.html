@@ -43,9 +43,7 @@
           <h5>Bang for buck:</h5>
           {% if restaurant.comments.last.cheapestslice %}
             <p>
-              {{
-              restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2
-              }}
+              {{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}
             </p>
           {% endif %}
           <h5>Created by:</h5>

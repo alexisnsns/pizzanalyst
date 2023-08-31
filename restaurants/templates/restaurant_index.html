@@ -2,8 +2,6 @@
 {% load static %}
 {% block page_content %}
   <body>
-    <h1 class="text-center mb-4 mt-4">Restaurants</h1>
-    {% comment %} <div class="col-sm"> {% endcomment %}
     <div class="row">
       <div class="col-sm">
         <form method="GET" action="{% url 'search' %}">
@@ -21,7 +19,7 @@
           {% if all_search_results %}
             {% for restaurant in all_search_results %}
               <div class="col mb-3">
-                <div class="card" style="width: 14rem;">
+                <div class="card" style="width: 12.3rem;">
                   <a href="{% url 'restaurant_detail' restaurant.pk %}">
                     {% if restaurant.image.url %}
                       <img class="card-img-top"
@@ -78,8 +76,7 @@
       {% comment %} </div> {% endcomment %}
       <div class="col-sm">
         <div id="map"
-             style="height:70vh"
-             class="w-100"
+             style="height:100vh"
              data-restaurants-names="{{ restaurants_names }}"
              data-favicon-url="{% static "favicon.ico" %}"
              data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"

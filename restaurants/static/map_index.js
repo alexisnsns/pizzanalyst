@@ -13,7 +13,7 @@ var faviconUrl = document.getElementById('map').getAttribute('data-favicon-url')
 
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/light-v11',
+  style: 'mapbox://styles/mapbox/streets-v11',
 });
 
 
@@ -51,6 +51,6 @@ const fetchPromises = restaurantsAddresses.map(address =>
 
   })
 
-  // CODE TO MAKE BOUNDS VARY 
+  // CODE TO MAKE BOUNDS VARY
   //   this.markersValue.forEach(marker => bounds.extend(coordinates))
   //   this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 })
