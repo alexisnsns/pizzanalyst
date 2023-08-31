@@ -62,15 +62,9 @@ a:active {
   /* Adjust the size as needed */
   background-size: cover; }
 
-#map-index {
+#map {
   border: 0.5px solid black;
-  position: sticky;
-  top: 20px;
-}
-
-#map-detail {
-  border: 0.5px solid black;
-}
+  position: sticky; }
 
 .detail-image {
   border: 1px solid black; }
