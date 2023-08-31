@@ -1,161 +1,152 @@
-{% extends "base.html" %} {% load static %} {% block page_content %}
-{% load crispy_forms_tags %}
-{% load cloudinary %}
-{% load mathfilters %}
-
-
-<html>
-
-<body>
-<h1 class="text-center mb-4 mt-4">{{ restaurant.name|title }}</h1>
-<div class="row">
-  <div class="col-md-6">
-    {% if image_url %}
-    <img src="{{ image_url }}" alt="restaurant image" width="100%" class="detail-image">
-    {% else %}
-    <img src="{% static 'frank.jpg' %}" alt="My image", width="100%" class="detail-image">
-    {% endif %}
-  </div>
-  <div class="col-md-6">
-    <h5>About the restaurant:</h5>
-    <p>{{ restaurant.description }}</p>
-    <br>
-    <h5>Address:</h5>
-    <p>{{ restaurant.address }}</p>
-    <p>{{ restaurant.address_search }}</p>
-
-    <div id='map' style='height:200px' class='w-50'
-    data-restaurant-address="{{ restaurant.address }}"
-    data-restaurant-description="{{ restaurant.description }}"
-    data-restaurant-name="{{ restaurant.name }}"
-    data-favicon-url="{% static 'favicon.ico' %}"
-    data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"></div>
-    <h5>Cheapest slice (last reported):</h5>
-    <p>${{ restaurant.comments.last.cheapestslice }}</p>
-    <h5>User average grade:</h5>
-    <p>{{ restaurant.average_quality }} / 5</p>
-    <h5>Bang for buck:</h5>
-    {% if restaurant.comments.last.cheapestslice %}
-    <p>{{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</p>
-    {% endif %}
-    <h5>Created by:</h5>
-    <p>{{ restaurant.created_by|title }}</p>
-
-
-  {% comment %} UPDATE RESTAURANT {% endcomment %}
-  {% if user.is_authenticated and restaurant.created_by == user %}
-  <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
-    {% csrf_token %}
-    <input type="submit" value="Update restaurant" class="btn btn-warning" />
-  </form>
-  {% endif %}
-
-    {% comment %} DELETE RESTAURANT {% endcomment %}
-  {% if user.is_authenticated and restaurant.created_by == user %}
-  <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
-    {% csrf_token %}
-    <input type="submit" value="Delete restaurant" class="btn btn-danger" />
-  </form>
-  {% endif %}
-
-</div>
-</div>
-
-<hr>
-
-{% comment %} DISPLAY COMMENTS {% endcomment %}
-<h1 class="text-center mb-4 mt-4"> Comments </h1>
-
-{% if restaurant.comments.count != 0 %}
-  <div class="row">
-    {% for comment in restaurant.comments.all %}
-    <div class="col-md-3">
-      <div class="card mb-2">
-        <div class="card-body">
-          <h5 class="card-title">{{ comment.created_by|title }}</h5>
-          <p class="card-text">{{ comment.body }}</p>
-          <p class="card-text">{{ comment.quality }} / 5</p>
-          <p class="card-text">{{ comment.cheapestslice }} $</p>
-          <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
-
-          {% if user.is_authenticated and comment.created_by == user %}
-          <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
-            {% csrf_token %}
-            <input type="submit" value="Update" class="btn btn-warning" />
-          </form>
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+  {% load crispy_forms_tags %}
+  {% load cloudinary %}
+  {% load mathfilters %}
+  <html>
+    <body>
+      <h1 class="text-center mb-4 mt-4">{{ restaurant.name|title }}</h1>
+      <div class="row">
+        <div class="col-md-6">
+          {% if image_url %}
+            <img src="{{ image_url }}"
+                 alt="restaurant image"
+                 width="100%"
+                 class="detail-image" />
+          {% else %}
+            <img src="{% static 'frank.jpg' %}"
+                 alt="My image"
+                 width="100%"
+                 class="detail-image" />
           {% endif %}
-
-          {% if user.is_authenticated and comment.created_by == user %}
-          <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
-            {% csrf_token %}
-            <input type="submit" value="Delete" class="btn btn-danger" />
-          </form>
+        </div>
+        <div class="col-md-6">
+          <h5>About the restaurant:</h5>
+          <p>{{ restaurant.description }}</p>
+          <br />
+          <h5>Address:</h5>
+          <p>{{ restaurant.address }}</p>
+          <p>{{ restaurant.address_search }}</p>
+          <div id="map"
+               style="height: 200px"
+               class="w-50"
+               data-restaurant-address="{{ restaurant.address }}"
+               data-restaurant-description="{{ restaurant.description }}"
+               data-restaurant-name="{{ restaurant.name }}"
+               data-favicon-url="{% static 'favicon.ico' %}"
+               data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"></div>
+          <h5>Cheapest slice (last reported):</h5>
+          <p>${{ restaurant.comments.last.cheapestslice }}</p>
+          <h5>User average grade:</h5>
+          <p>{{ restaurant.average_quality }} / 5</p>
+          <h5>Bang for buck:</h5>
+          {% if restaurant.comments.last.cheapestslice %}
+            <p>
+              {{
+              restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2
+              }}
+            </p>
           {% endif %}
-
+          <h5>Created by:</h5>
+          <p>{{ restaurant.created_by|title }}</p>
+          {% comment %} UPDATE RESTAURANT {% endcomment %}
+          {% if user.is_authenticated and restaurant.created_by == user %}
+            <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
+              {% csrf_token %}
+              <input type="submit" value="Update restaurant" class="btn btn-warning" />
+            </form>
+          {% endif %}
+          {% comment %} DELETE RESTAURANT {% endcomment %}
+          {% if user.is_authenticated and restaurant.created_by == user %}
+            <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
+              {% csrf_token %}
+              <input type="submit" value="Delete restaurant" class="btn btn-danger" />
+            </form>
+          {% endif %}
         </div>
       </div>
-    </div>
-    {% endfor %}
-  </div>
-{% else %}
-  <p class='text-center'>No data to slice here {{  user.username|title }}...</p>
-  <p class='text-center mb-3'> Be the first to comment!</p>
-{% endif %}
-
-
-<hr>
-
-
-{% comment %} CREATE COMMENT {% endcomment %}
-{% if user.is_authenticated  %}
-  <h1 class='text-center mt-5 mb-4'> {{  user.username|title }}, tell us about your experience at this restaurant !</h1>
-
-  <div class="">
-    <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {% if field.name == 'body' %}
-          <input type="text" class="form-control" name="{{ field.name }}">
-          {% elif field.name == 'quality' %}
-            <select class="form-control" name="{{ field.name }}" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-            </select>
-          {% elif field.name == 'cheapestslice' %}
-          <select class="form-control" name="{{ field.name }}" required>
-            <option value="1">Less than $1</option>
-            <option value="2">Between $2 and $3</option>
-            <option value="3">Between $3 and $4</option>
-            <option value="4">Between $4 and $5</option>
-            <option value="5">More than $5</option>
-          </select>
-        {% else %}
-            {{ field|as_crispy_field }}
-          {% endif %}
+      <hr />
+      {% comment %} DISPLAY COMMENTS {% endcomment %}
+      <h1 class="text-center mb-4 mt-4">Comments</h1>
+      {% if restaurant.comments.count != 0 %}
+        <div class="row">
+          {% for comment in restaurant.comments.all %}
+            <div class="col-md-3">
+              <div class="card mb-2">
+                <div class="card-body">
+                  <h5 class="card-title">{{ comment.created_by|title }}</h5>
+                  <p class="card-text">{{ comment.body }}</p>
+                  <p class="card-text">{{ comment.quality }} / 5</p>
+                  <p class="card-text">{{ comment.cheapestslice }} $</p>
+                  <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
+                  {% if user.is_authenticated and comment.created_by == user %}
+                    <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
+                      {% csrf_token %}
+                      <input type="submit" value="Update" class="btn btn-warning" />
+                    </form>
+                  {% endif %}
+                  {% if user.is_authenticated and comment.created_by == user %}
+                    <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
+                      {% csrf_token %}
+                      <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
-      <input type="submit" value="Add comment" class="btn btn-primary" />
-    </form>
-  </div>
-
-
-
-  {% else %}
-  <p class='text-center mt-5'>
-  <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
-  to comment!  </p>
-  {% endif %}
-
-
-<script src="{% static 'map_detail.js' %}"></script>
-</body>
-
-</html>
-
-
-  {% endblock %}
+      {% else %}
+        <p class="text-center">No data to slice here {{ user.username|title }}...</p>
+        <p class="text-center mb-3">Be the first to comment!</p>
+      {% endif %}
+      <hr />
+      {% comment %} CREATE COMMENT {% endcomment %}
+      {% if user.is_authenticated %}
+        <h1 class="text-center mt-5 mb-4">
+          {{ user.username|title }}, tell us about your experience at this
+          restaurant !
+        </h1>
+        <div class="">
+          <form method="POST" action="{% url 'restaurant_detail' pk=restaurant.pk %}">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {% if field.name == 'body' %}
+                  <input type="text" class="form-control" name="{{ field.name }}" />
+                {% elif field.name == 'quality' %}
+                  <select class="form-control" name="{{ field.name }}" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                {% elif field.name == 'cheapestslice' %}
+                  <select class="form-control" name="{{ field.name }}" required>
+                    <option value="1">Less than $1</option>
+                    <option value="2">Between $2 and $3</option>
+                    <option value="3">Between $3 and $4</option>
+                    <option value="4">Between $4 and $5</option>
+                    <option value="5">More than $5</option>
+                  </select>
+                {% else %}
+                  {{ field|as_crispy_field }}
+                {% endif %}
+              </div>
+            {% endfor %}
+            <input type="submit" value="Add comment" class="btn btn-primary" />
+          </form>
+        </div>
+      {% else %}
+        <p class="text-center mt-5">
+          <a href="{% url 'register' %}">Sign up</a> or
+          <a href="{% url 'login' %}">Sign in</a> to comment!
+        </p>
+      {% endif %}
+      <script src="{% static 'map_detail.js' %}"></script>
+    </body>
+  </html>
+{% endblock %}

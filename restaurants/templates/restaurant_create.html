@@ -1,39 +1,38 @@
 {% extends "base.html" %}
 {% block page_content %}
-{% load crispy_forms_tags %}
-{% load static %}
-
-
-
-
-<div class="container">
-  <h1 class='mb-5 mt-5'>Tell us more about your restaurant !</h1>
-
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% if field.name == 'name' %}
-            <input type="text" class="form-control" name="{{ field.name }}" >
-        {% elif field.name == 'description' %}
-            <input type="text" class="form-control" name="{{ field.name }}">
-        {% elif field.name == 'address' %}
-            <input name="{{ field.name }}" type="text" class="form-control">
-        {% elif field.name == 'image' %}
+  {% load crispy_forms_tags %}
+  {% load static %}
+  <div class="container">
+    <h1 class='mb-5 mt-5'>Tell us more about your restaurant !</h1>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.name.label }}
+        <input type="text"
+               class="form-control"
+               name="name"
+               value="{{ restaurant.name }}">
+        {{ form.description.label }}
+        <input type="text"
+               class="form-control"
+               name="description"
+               value="{{ restaurant.description }}">
+        {{ form.address.label }}
+        <input type="text"
+               class="form-control"
+               name="address"
+               value="{{ restaurant.address }}">
+        {{ form.image.label }}
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="{{ field.id_for_label }}" name="{{ field.name }}" >
-          <label class="custom-file-label" for="{{ field.id_for_label }}"> Click here to add a picture</label>
+          <input type="file"
+                 class="custom-file-input"
+                 name="image"
+                 value="{{ restaurant.image }}">
+          <label class="custom-file-label" for="{{ form.image.label }}">restaurant's image</label>
+        </div>
       </div>
-        {% else %}
-          {{ field|as_crispy_field }}
-        {% endif %}
     </div>
-    {% endfor %}
-    <input type="submit" value="Create Restaurant" class="btn btn-primary mt-2" />
+    <input type="submit" value="Update Restaurant" class="btn btn-primary" />
   </form>
 </div>
-
-
-
 {% endblock %}

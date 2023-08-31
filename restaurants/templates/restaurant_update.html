@@ -2,10 +2,8 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block page_content %}
-
-
-{% comment %} when i have autofill with mapbox i cannot save the form as it adds address-search to the variable sent {% endcomment %}
-{% comment %} <head>
+  {% comment %} when i have autofill with mapbox i cannot save the form as it adds address-search to the variable sent {% endcomment %}
+  {% comment %} <head>
   <script id="search-js" defer src="https://api.mapbox.com/search-js/v1.0.0-beta.17/web.js"></script>
 <script>
     const script = document.getElementById('search-js');
@@ -15,41 +13,41 @@
         });
     };
 </script>
-</head> {% endcomment %}
-
-<body>
-<div class="container">
-
-  <h1> Update {{ restaurant.name|title }}
-  </h1>
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-    {% for field in form %}
-    <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {% if field.name == 'name' %}
-            <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.name }}">
-        {% elif field.name == 'description' %}
-        <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.description }}">
-        {% elif field.name == 'address' %}
-            <input type="text" class="form-control" name="{{ field.name }}" value="{{ restaurant.address }}" >
-            {% comment %} autocomplete="address-line1" to add to above field {% endcomment %}
-        {% elif field.name == 'image' %}
-        <div class="custom-file">
-          <input type="file" class="custom-file-input" id="{{ field.id_for_label }}" name="{{ field.name }}" value="{{ restaurant.image }}">
-          <label class="custom-file-label" for="{{ field.id_for_label }}"> {{ restaurant.image }}</label>
+  </head> {% endcomment %}
+  <body>
+    <div class="container">
+      <h1>Update {{ restaurant.name|title }}</h1>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          {{ form.name.label }}
+          <input type="text"
+                 class="form-control"
+                 name="name"
+                 value="{{ restaurant.name }}">
+          {{ form.description.label }}
+          <input type="text"
+                 class="form-control"
+                 name="description"
+                 value="{{ restaurant.description }}">
+          {{ form.address.label }}
+          <input type="text"
+                 class="form-control"
+                 name="address"
+                 value="{{ restaurant.address }}">
+          {% comment %} autocomplete="address-line1" to add to above field {% endcomment %}
+          {{ form.image.label }}
+          <div class="custom-file">
+            <input type="file"
+                   class="custom-file-input"
+                   name="image"
+                   value="{{ restaurant.image }}">
+            <label class="custom-file-label" for="{{ form.image.label }}">{{ restaurant.name }}'s image</label>
+          </div>
+        </div>
       </div>
-        {% else %}
-            {{ field|as_crispy_field }}
-        {% endif %}
-    </div>
-    {% endfor %}
+      <input type="submit" value="Update Restaurant" class="btn btn-primary" />
+    </form>
   </div>
-  <input type="submit" value="Update Restaurant" class="btn btn-primary"/>
-</form>
-</div>
 </body>
-
-
-
 {% endblock %}

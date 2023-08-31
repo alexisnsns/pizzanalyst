@@ -1,27 +1,25 @@
-{% extends "base.html" %}  {% block page_content %}
-
-
-{% load crispy_forms_tags %}
-<form method="POST" action="{% url 'comment_update' pk=form.instance.pk %}">
-  {% csrf_token %}
-  {% for field in form %}
-            <div class="form-group">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {% if field.name == 'body' %}
-                    <input type="text" class="form-control" name="{{ field.name }}" value="{{ comment.body }}">
-                {% elif field.name == 'cheapestslice' %}
-                    <input type="number" class="form-control" name="{{ field.name }}" value="{{ comment.cheapestslice }}">
-                {% elif field.name == 'quality' %}
-                    <input type="number" class="form-control" name="{{ field.name }}" value="{{ comment.quality }}">
-                {% else %}
-                    {{ field|as_crispy_field }}
-                {% endif %}
-            </div>
-        {% endfor %}
-
-  <input type="submit" value="Update Comment" class="btn btn-primary">
-</form>
-
-
-
+{% extends "base.html" %}
+{% block page_content %}
+  {% load crispy_forms_tags %}
+  <form method="POST" action="{% url 'comment_update' pk=form.instance.pk %}">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.body.label }}
+      <input type="text"
+             class="form-control"
+             name="body"
+             value="{{ comment.body }}" />
+      {{ form.cheapestslice.label }}
+      <input type="number"
+             class="form-control"
+             name="cheapestslice"
+             value="{{ comment.cheapestslice }}" />
+      {{ form.quality.label }}
+      <input type="number"
+             class="form-control"
+             name="quality"
+             value="{{ comment.quality }}" />
+    </div>
+    <input type="submit" value="Update Comment" class="btn btn-primary" />
+  </form>
 {% endblock %}

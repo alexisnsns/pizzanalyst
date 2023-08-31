@@ -1,92 +1,86 @@
-{% extends "base.html" %} {% load static %} {% block page_content %}
-
-<body>
-  <h1 class="text-center mb-4 mt-4">Restaurants</h1>
-
-  <form class="" method="GET" action="{% url 'search' %}" >
-    <input class="" type="search" name="search">
-    <button class="" type="submit"> Search </button>
-</form>
-
-<div class="col-sm">
-  <div class="row">
-    <div class="col-md-7">
-      <div class="row row-cols-1 row-cols-md-3">
-        {% if all_search_results %}
-          {% for restaurant in all_search_results %}
-            <div class="col mb-3">
-              <div class="card" style="width: 12rem;">
-                <a href="{% url 'restaurant_detail' restaurant.pk %}">
-                  {% if restaurant.image.url %}
-                    <img class="card-img-top" src="{{ restaurant.image.url }}" alt="restaurant image">
-                  {% else %}
-                    <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
-                  {% endif %}
-                  <div class="card-body">
-                    <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
-                    <p class="card-text text-justify overflow-hidden" style="height: 5rem; font-size:12px;">{{ restaurant.description|title }}</p>
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+  <body>
+    <h1 class="text-center mb-4 mt-4">Restaurants</h1>
+    <form class="" method="GET" action="{% url 'search' %}">
+      <input class="" type="search" name="search">
+      <button class="" type="submit">Search</button>
+    </form>
+    <div class="col-sm">
+      <div class="row">
+        <div class="col-md-7">
+          <div class="row row-cols-1 row-cols-md-3">
+            {% if all_search_results %}
+              {% for restaurant in all_search_results %}
+                <div class="col mb-3">
+                  <div class="card" style="width: 12rem;">
+                    <a href="{% url 'restaurant_detail' restaurant.pk %}">
+                      {% if restaurant.image.url %}
+                        <img class="card-img-top"
+                             src="{{ restaurant.image.url }}"
+                             alt="restaurant image">
+                      {% else %}
+                        <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
+                      {% endif %}
+                      <div class="card-body">
+                        <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
+                        <p class="card-text text-justify overflow-hidden"
+                           style="height: 5rem;
+                                  font-size:12px">{{ restaurant.description|title }}</p>
+                      </div>
+                    </a>
                   </div>
-                </a>
-              </div>
-            </div>
-          {% endfor %}
-        {% else %}
-          {% for restaurant in restaurants %}
-            <div class="col mb-3">
-              <div class="card" style="width: 12rem;">
-                <a href="{% url 'restaurant_detail' restaurant.pk %}">
-                  {% if restaurant.image.url %}
-                    <img class="card-img-top" src="{{ restaurant.image.url }}" alt="restaurant image">
-                  {% else %}
-                    <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
-                  {% endif %}
-                  <div class="card-body">
-                    <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
-                    <p class="card-text text-justify overflow-hidden" style="height: 5rem; font-size:12px;">{{ restaurant.description|title }}</p>
+                </div>
+              {% endfor %}
+            {% else %}
+              {% for restaurant in restaurants %}
+                <div class="col mb-3">
+                  <div class="card" style="width: 12rem;">
+                    <a href="{% url 'restaurant_detail' restaurant.pk %}">
+                      {% if restaurant.image.url %}
+                        <img class="card-img-top"
+                             src="{{ restaurant.image.url }}"
+                             alt="restaurant image">
+                      {% else %}
+                        <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
+                      {% endif %}
+                      <div class="card-body">
+                        <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
+                        <p class="card-text text-justify overflow-hidden"
+                           style="height: 5rem;
+                                  font-size:12px">{{ restaurant.description|title }}</p>
+                      </div>
+                    </a>
                   </div>
-                </a>
-              </div>
-            </div>
-          {% endfor %}
-        {% endif %}
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
       </div>
     </div>
+    <div class="text-center mt-4">
+      {% if user.is_authenticated %}
+        <a href="{% url 'restaurant_create' %}" class="btn btn-secondary">Add a restaurant</a>
+      {% else %}
+        <p>
+          <a href="{% url 'register' %}">Sign up</a> or <a href="{% url 'login' %}">Sign in</a>
+          to create a restaurant!
+        </p>
+      {% endif %}
+    </div>
   </div>
-</div>
-
-
-
-
-
-
-
-  <div class="text-center mt-4">
-    {% if user.is_authenticated %}
-      <a href="restaurants/create" class="btn btn-secondary" > Add a restaurant </a>
-    {% else %}
-    <p>
-    <a href="{% url 'register' %}"> Sign up </a> or <a href="{% url 'login' %}">Sign in</a>
-    to create a restaurant!  </p>
-    {% endif %}
+  <div class="col-md-5">
+    <div id='map'
+         style='height:70vh'
+         class='w-100'
+         data-restaurants-names="{{ restaurants_names }}"
+         data-favicon-url="{% static 'favicon.ico' %}"
+         data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
+         data-restaurants-addresses="{{ restaurants_addresses }}"
+         data-restaurants-indexes="{{ restaurants_indexes }}"></div>
+    <script src="{% static 'map_index.js' %}"></script>
   </div>
-</div>
-
-<div class="col-md-5">
-  <div id='map' style='height:70vh' class='w-100'
-  data-restaurants-names="{{ restaurants_names }}"
-  data-favicon-url="{% static 'favicon.ico' %}"
-  data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
-  data-restaurants-addresses="{{ restaurants_addresses }}"
-  data-restaurants-indexes="{{ restaurants_indexes }}"
-  >
-  </div>
-
-
-<script src="{% static 'map_index.js' %}"></script>
-</div>
-
-
 </body>
-
-
 {% endblock %}
