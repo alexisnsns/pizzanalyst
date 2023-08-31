@@ -16,18 +16,20 @@ var map = new mapboxgl.Map({
   style: 'mapbox://styles/mapbox/light-v11',
 });
 
-const bounds = new mapboxgl.LngLatBounds();
 
 const fetchPromises = restaurantsAddresses.map(address =>
   fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${mapboxgl.accessToken}`)
-    .then(response => response.json())
-);
+  .then(response => response.json())
+  );
 
 
+  const bounds = new mapboxgl.LngLatBounds();
 
-Promise.all(fetchPromises)
+  Promise.all(fetchPromises)
   .then(dataArray => {
     dataArray.forEach((data, index) => {
+
+      // fetch coordinates variable for each element
       var coordinates = data.features[0].center;
 
       // Create custom pin for the marker
@@ -35,18 +37,20 @@ Promise.all(fetchPromises)
       customPin.className = 'custom-marker';
       customPin.style.backgroundImage = `url("${faviconUrl}")`;
 
-      var popupContent = '<h3><a href=" restaurants/' + restaurantsIndexes[index] + '">' + restaurantsNames[index] + '</a></h3>';
+      // Create var with popup content
+      var popupContent = '<h3><a href=" /' + restaurantsIndexes[index] + '">' + restaurantsNames[index] + '</a></h3>';
 
+      // add pin and marker to map
       var marker = new mapboxgl.Marker(customPin)
         .setLngLat(coordinates)
         .setPopup(new mapboxgl.Popup().setHTML(popupContent))
         .addTo(map);
-
-      bounds.extend(coordinates);
+        bounds.extend(coordinates);
+        map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
     });
 
-    map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 });
   })
-  .catch(error => {
-    console.error('An error occurred:', error);
-  });
+
+  // CODE TO MAKE BOUNDS VARY 
+  //   this.markersValue.forEach(marker => bounds.extend(coordinates))
+  //   this.map.fitBounds(bounds, { padding: 70, maxZoom: 15, duration: 0 })
