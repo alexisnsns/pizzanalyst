@@ -3,6 +3,9 @@ import os
 from dotenv import load_dotenv
 import environ
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,10 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'connectislice.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -104,14 +103,12 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-# Internationalization
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -124,9 +121,6 @@ SASS_PROCESSOR_ENABLED = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'restaurants', 'templates')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = ['https://www.anotherproject.me']
 
@@ -136,9 +130,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
 load_dotenv()
 
