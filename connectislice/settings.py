@@ -109,9 +109,16 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'sass_processor.finders.CssFinder',
 ]
+
+# SASS files
 SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
 SASS_PRECISION = 8
 SASS_PROCESSOR_ENABLED = True
+
+# CRISPY
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+
 
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'restaurants', 'templates')
@@ -120,8 +127,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = ['https://www.anotherproject.me']
 
 
-
-CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
 
