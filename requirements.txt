@@ -12,4 +12,3 @@ django-mathfilters
 django-sass-processor
 fontawesomefree
 django-environ
-debug-toolbar==4.2.0
