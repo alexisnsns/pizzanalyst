@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'accounts',
     'fontawesomefree',
     'sass_processor',
-    # 'debug_toolbar',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
