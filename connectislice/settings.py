@@ -32,7 +32,6 @@ INSTALLED_APPS = [
     'mathfilters',
     'accounts',
     'fontawesomefree',
-    'sass_processor',
 ]
 
 MIDDLEWARE = [
@@ -109,14 +108,14 @@ STATICFILES_FINDERS = [
 ]
 
 # SASS files
-SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
-SASS_PRECISION = 8
-SASS_PROCESSOR_ENABLED = True
+# SASS_PROCESSOR_INCLUDE_FILE_PATTERN = r'^.+\.scss$'
+# SASS_PRECISION = 8
+# SASS_PROCESSOR_ENABLED = True
 
-# Directory where your SCSS files are located.
-SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static', 'css')
-# Directory where compiled CSS files should be saved.
-SASS_PROCESSOR_OUTPUT_DIR = os.path.join('static', 'css')
+# # Directory where your   files are located.
+# SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, 'static', 'css')
+# # Directory where compiled CSS files should be saved.
+# SASS_PROCESSOR_OUTPUT_DIR = os.path.join('static', 'css')
 
 # CRISPY
 CRISPY_TEMPLATE_PACK = 'bootstrap5'

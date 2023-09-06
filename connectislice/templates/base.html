@@ -2,31 +2,34 @@
   {% load static %}
   {% load sass_tags %}
   <head>
-    <title>{% block title %}Connectislice{% endblock %}</title>
-    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" >
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link href="{% sass_src 'css/styles.scss' %}" rel="stylesheet" type="text/css" />
-    <link href="{% sass_src 'css/custom.scss' %}" rel="stylesheet" type="text/css" />
-
-    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
-    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
-
-
-
+    <title>
+      {% block title %}Connectislice{% endblock %}
+    </title>
+    <link rel="shortcut icon"
+          type="image/png"
+          href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'css/custom.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}"
+          rel="stylesheet"
+          type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}"
+          rel="stylesheet"
+          type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}"
+          rel="stylesheet"
+          type="text/css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
-
-
-
-</head>
-<body>
-  {% include 'shared/navbar.html' %}
-  <div class="container">
-    {% block page_content %}
-    {% endblock %}
-  </div>
-  {% include 'shared/footer.html' %}
-
-</body>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css'
+          rel='stylesheet' />
+  </head>
+  <body>
+    {% include 'shared/navbar.html' %}
+    <div class="container">
+      {% block page_content %}{% endblock %}
+    </div>
+    {% include 'shared/footer.html' %}
+  </body>
 </html>
