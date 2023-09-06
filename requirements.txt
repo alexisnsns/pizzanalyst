@@ -12,3 +12,4 @@ django-mathfilters
 django-sass-processor
 fontawesomefree
 django-environ
+import_export
