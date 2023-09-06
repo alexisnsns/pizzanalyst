@@ -119,3 +119,13 @@ a:active {
   font-size: 30px;
   cursor: pointer;
 }
+
+
+.animated-element {
+  transform: translateY(20px); /* Initial position, adjust as needed */
+  transition: transform 0.3s ease-in-out;
+}
+
+.animated-element.show {
+  transform: translateY(0); /* Final position, adjust as needed */
+}

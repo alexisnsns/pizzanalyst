@@ -8,7 +8,7 @@
     <body>
       <h1 class="text-center mb-4 mt-4">{{ restaurant.name|title }}</h1>
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
           {% if image_url %}
             <img src="{{ image_url }}"
                  alt="restaurant image"
@@ -21,7 +21,7 @@
                  class="detail-image" />
           {% endif %}
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h5>About the restaurant:</h5>
           <p>{{ restaurant.description }}</p>
           <br />
@@ -36,15 +36,15 @@
                data-restaurant-name="{{ restaurant.name }}"
                data-favicon-url="{% static 'favicon.ico' %}"
                data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"></div>
+        </div>
+        <div class="col-md-4">
           <h5>Cheapest slice (last reported):</h5>
           <p>${{ restaurant.comments.last.cheapestslice }}</p>
           <h5>User average grade:</h5>
           <p>{{ restaurant.average_quality }} / 5</p>
           <h5>Bang for buck:</h5>
           {% if restaurant.comments.last.cheapestslice %}
-            <p>
-              {{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}
-            </p>
+            <p>{{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</p>
           {% endif %}
           <h5>Created by:</h5>
           <p>{{ restaurant.created_by|title }}</p>
@@ -66,39 +66,45 @@
       </div>
       <hr />
       {% comment %} DISPLAY COMMENTS {% endcomment %}
-      <h1 class="text-center mb-4 mt-4">Comments</h1>
-      {% if restaurant.comments.count != 0 %}
-        <div class="row">
-          {% for comment in restaurant.comments.all %}
-            <div class="col-md-3">
-              <div class="card mb-2">
-                <div class="card-body">
-                  <h5 class="card-title">{{ comment.created_by|title }}</h5>
-                  <p class="card-text">{{ comment.body }}</p>
-                  <p class="card-text">{{ comment.quality }} / 5</p>
-                  <p class="card-text">{{ comment.cheapestslice }} $</p>
-                  <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
-                  {% if user.is_authenticated and comment.created_by == user %}
-                    <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
-                      {% csrf_token %}
-                      <input type="submit" value="Update" class="btn btn-warning" />
-                    </form>
-                  {% endif %}
-                  {% if user.is_authenticated and comment.created_by == user %}
-                    <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
-                      {% csrf_token %}
-                      <input type="submit" value="Delete" class="btn btn-danger" />
-                    </form>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          {% endfor %}
+      <div id="app">
+        <div class="text-center mb-4 mt-4">
+          <button class="btn btn-primary mb-2 mt-2" @click="toggleAnimation">${ buttonText }</button>
         </div>
-      {% else %}
-        <p class="text-center">No data to slice here {{ user.username|title }}...</p>
-        <p class="text-center mb-3">Be the first to comment!</p>
-      {% endif %}
+        <div v-if="isAnimated" class="animated-element">
+          {% if restaurant.comments.count != 0 %}
+            <div class="row">
+              {% for comment in restaurant.comments.all %}
+                <div class="col-md-3">
+                  <div class="card mb-5">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ comment.created_by|title }}</h5>
+                      <p class="card-text">{{ comment.body }}</p>
+                      <p class="card-text">{{ comment.quality }} / 5</p>
+                      <p class="card-text">{{ comment.cheapestslice }} $</p>
+                      <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
+                      {% if user.is_authenticated and comment.created_by == user %}
+                        <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
+                          {% csrf_token %}
+                          <input type="submit" value="Update" class="btn btn-warning" />
+                        </form>
+                      {% endif %}
+                      {% if user.is_authenticated and comment.created_by == user %}
+                        <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
+                          {% csrf_token %}
+                          <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <p class="text-center">No data to slice here {{ user.username|title }}...</p>
+            <p class="text-center mb-5">Be the first to comment!</p>
+          {% endif %}
+        </div>
+      </div>
       <hr />
       {% comment %} CREATE COMMENT {% endcomment %}
       {% if user.is_authenticated %}
@@ -145,6 +151,8 @@
         </p>
       {% endif %}
       <script src="{% static 'map_detail.js' %}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+      <script src="{% static "vuedetail.js" %}"></script>
     </body>
   </html>
 {% endblock %}
