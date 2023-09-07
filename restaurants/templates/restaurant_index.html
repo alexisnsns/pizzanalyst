@@ -1,104 +1,106 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
-  <body>
-    <div class="row">
-      <div class="col-sm">
-        <form method="GET" action="{% url 'search' %}">
-          <div class="input-group">
-            <input class="form-control"
-                   type="search"
-                   name="search"
-                   placeholder="Craving a good slice?">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="submit">Search</button>
-            </div>
-          </div>
-        </form>
-        <div class="row row-cols-1 row-cols-md-3">
-          {% if all_search_results %}
-            {% for restaurant in all_search_results %}
-              <div class="col mb-3">
-                <div class="card" style="width: 12.3rem;">
-                  <a href="{% url 'restaurant_detail' restaurant.pk %}">
-                    {% if restaurant.image.url %}
-                      <img class="card-img-top"
-                           src="{{ restaurant.image.url }}"
-                           alt="restaurant image">
-                    {% else %}
-                      <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
-                    {% endif %}
-                    <div class="card-body">
-                      <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
-                      <p class="card-text text-justify overflow-hidden"
-                         style="height: 5rem;
-                                font-size:12px">{{ restaurant.description|title }}</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            {% endfor %}
-          {% else %}
-            {% for restaurant in restaurants %}
-              <div class="col mb-3">
-                <div class="card" style="width: 12rem;">
-                  <a href="{% url 'restaurant_detail' restaurant.pk %}">
-                    {% if restaurant.image.url %}
-                      <img class="card-img-top"
-                           src="{{ restaurant.image.url }}"
-                           alt="restaurant image">
-                    {% else %}
-                      <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
-                    {% endif %}
-                    <div class="card-body">
-                      <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
-                      <p class="card-text text-justify overflow-hidden"
-                         style="height: 5rem;
-                                font-size:12px">{{ restaurant.description|title }}</p>
-                    </div>
-                  </a>
-                </div>
-              </div>
-            {% endfor %}
-          {% endif %}
-        </div>
-        <div class="text-center mt-4">
-          {% if user.is_authenticated %}
-            <a href="{% url 'restaurant_create' %}" class="btn btn-secondary">Add a restaurant</a>
-          {% else %}
-            <p>
-              <a href="{% url 'register' %}">Sign up</a> or <a href="{% url 'login' %}">Sign in</a>
-              to create a restaurant!
-            </p>
-          {% endif %}
-          <div id="app">
-            <button class="btn btn-primary" @click="togglePopup">Or read our story...</button>
-            <div class="popup"
-                 :class="{ 'show': PopupStatus }"
-                 @click="closePopupOutside">
-              <div class="popup-content" @click.stop>
-                <span class="close-icon" @click="closePopup">×</span>
-                <p>
-                  "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-                </p>
+  <html>
+    <body>
+      <div class="row">
+        <div class="col-sm">
+          <form method="GET" action="{% url 'search' %}">
+            <div class="input-group">
+              <input class="form-control"
+                     type="search"
+                     name="search"
+                     placeholder="Craving a good slice?">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
               </div>
             </div>
+          </form>
+          <div class="row row-cols-1 row-cols-md-3">
+            {% if all_search_results %}
+              {% for restaurant in all_search_results %}
+                <div class="col mb-3">
+                  <div class="card" style="width: 12.3rem;">
+                    <a href="{% url 'restaurant_detail' restaurant.pk %}">
+                      {% if restaurant.image.url %}
+                        <img class="card-img-top"
+                             src="{{ restaurant.image.url }}"
+                             alt="restaurant image">
+                      {% else %}
+                        <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
+                      {% endif %}
+                      <div class="card-body">
+                        <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
+                        <p class="card-text text-justify overflow-hidden"
+                           style="height: 5rem;
+                                  font-size:12px">{{ restaurant.description|title }}</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            {% else %}
+              {% for restaurant in restaurants %}
+                <div class="col mb-3">
+                  <div class="card" style="width: 12rem;">
+                    <a href="{% url 'restaurant_detail' restaurant.pk %}">
+                      {% if restaurant.image.url %}
+                        <img class="card-img-top"
+                             src="{{ restaurant.image.url }}"
+                             alt="restaurant image">
+                      {% else %}
+                        <img class="card-img-top" src="{% static 'frank.jpg' %}" alt="My image">
+                      {% endif %}
+                      <div class="card-body">
+                        <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
+                        <p class="card-text text-justify overflow-hidden"
+                           style="height: 5rem;
+                                  font-size:12px">{{ restaurant.description|title }}</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="text-center mt-4">
+            {% if user.is_authenticated %}
+              <a href="{% url 'restaurant_create' %}" class="btn btn-secondary">Add a restaurant</a>
+            {% else %}
+              <p>
+                <a href="{% url 'register' %}">Sign up</a> or <a href="{% url 'login' %}">Sign in</a>
+                to create a restaurant!
+              </p>
+            {% endif %}
+            <div id="app">
+              <button class="btn btn-primary" @click="togglePopup">Or read our story...</button>
+              <div class="popup"
+                   :class="{ 'show': PopupStatus }"
+                   @click="closePopupOutside">
+                <div class="popup-content" @click.stop>
+                  <span class="close-icon" @click="closePopup">×</span>
+                  <p>
+                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div class="col-sm">
+          <div id="map"
+               style="height:100vh"
+               class="map-index"
+               data-restaurants-names="{{ restaurants_names }}"
+               data-favicon-url="{% static "favicon.ico" %}"
+               data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
+               data-restaurants-addresses="{{ restaurants_addresses }}"
+               data-restaurants-indexes="{{ restaurants_indexes }}"></div>
+          <script src="{% static "map_index.js" %}"></script>
+        </div>
       </div>
-      <div class="col-sm">
-        <div id="map"
-             style="height:100vh"
-             class="map-index"
-             data-restaurants-names="{{ restaurants_names }}"
-             data-favicon-url="{% static "favicon.ico" %}"
-             data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
-             data-restaurants-addresses="{{ restaurants_addresses }}"
-             data-restaurants-indexes="{{ restaurants_indexes }}"></div>
-        <script src="{% static "map_index.js" %}"></script>
-      </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="{% static "vue.js" %}"></script>
-  </body>
+      <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+      <script src="{% static "vue.js" %}"></script>
+    </body>
+  </html>
 {% endblock %}
