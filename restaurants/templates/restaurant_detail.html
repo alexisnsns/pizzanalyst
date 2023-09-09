@@ -15,7 +15,7 @@
                  width="100%"
                  class="detail-image" />
           {% else %}
-            <img src="{% static 'frank.jpg' %}"
+            <img src="{% static 'pizza.png' %}"
                  alt="My image"
                  width="100%"
                  class="detail-image" />
@@ -50,17 +50,28 @@
           <p>{{ restaurant.created_by|title }}</p>
           {% comment %} UPDATE RESTAURANT {% endcomment %}
           {% if user.is_authenticated and restaurant.created_by == user %}
-            <form method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
+          <div id="confirmation" >
+            <form style="display: inline;" method="POST" action="{% url 'restaurant_update' restaurant.pk %}">
               {% csrf_token %}
-              <input type="submit" value="Update restaurant" class="btn btn-warning" />
+              <input type="submit" value="Update" class="btn btn-warning" />
             </form>
           {% endif %}
           {% comment %} DELETE RESTAURANT {% endcomment %}
           {% if user.is_authenticated and restaurant.created_by == user %}
-            <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
-              {% csrf_token %}
-              <input type="submit" value="Delete restaurant" class="btn btn-danger" />
-            </form>
+              <input  @click="togglePopup" value="Delete" class="btn btn-danger" />
+              <div class="popup"
+              :class="{ 'show': PopupStatus }"
+              @click="closePopupOutside">
+              <div class="popup-content" @click.stop>
+                <span class="close-icon" @click="closePopup">×</span>
+                <form method="POST" action="{% url 'restaurant_delete' restaurant.pk %}">
+                  {% csrf_token %}
+                  <p> are you sure you want to delete? </p>
+                  <input type="submit" value="Delete" class="btn btn-danger" />
+                </form>
+              </div>
+          </div>
+      </div>
           {% endif %}
         </div>
       </div>
@@ -83,26 +94,38 @@
                       <p class="card-text">{{ comment.cheapestslice }} $</p>
                       <p class="card-text">{{ comment.created|date:"n/j/Y" }}</p>
                       {% if user.is_authenticated and comment.created_by == user %}
-                        <form method="POST" action="{% url 'comment_update' pk=comment.pk %}">
-                          {% csrf_token %}
-                          <input type="submit" value="Update" class="btn btn-warning" />
-                        </form>
+                      <div id="confirmation">
+                          <form  style="display: inline;" method="POST" action="{% url 'comment_update' pk=comment.pk %}">
+                            {% csrf_token %}
+                            <input @click="togglePopup" type="submit" value="Update" class="btn btn-warning" />
+                          </form>
+                        {% endif %}
+                        {% if user.is_authenticated and comment.created_by == user %}
+                          <form style="display: inline;" method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
+                            {% csrf_token %}
+                            <input @click="togglePopup" type="submit" value="Delete" class="btn btn-danger" />
+                          </form>
+                              <div class="popup"
+                                    :class="{ 'show': PopupStatus }"
+                                    @click="closePopupOutside">
+                                <div class="popup-content" @click.stop>
+                                  <span class="close-icon" @click="closePopup">×</span>
+                                  <p>
+                                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+                                  </p>
+                                </div>
+                              </div>
+                      </div>
+                              {% endif %}
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                      </div>
+                      {% else %}
+                      <p class="text-center">No data to slice here {{ user.username|title }}...</p>
+                      <p class="text-center mb-5">Be the first to comment!</p>
                       {% endif %}
-                      {% if user.is_authenticated and comment.created_by == user %}
-                        <form method="POST" action="{% url 'comment_delete' pk=comment.pk %}">
-                          {% csrf_token %}
-                          <input type="submit" value="Delete" class="btn btn-danger" />
-                        </form>
-                      {% endif %}
-                    </div>
-                  </div>
-                </div>
-              {% endfor %}
-            </div>
-          {% else %}
-            <p class="text-center">No data to slice here {{ user.username|title }}...</p>
-            <p class="text-center mb-5">Be the first to comment!</p>
-          {% endif %}
         </div>
       </div>
       <hr />
@@ -141,7 +164,9 @@
                 {% endif %}
               </div>
             {% endfor %}
+            <div class="text-center">
             <input type="submit" value="Add comment" class="btn btn-primary" />
+            </div>
           </form>
         </div>
       {% else %}
@@ -150,9 +175,15 @@
           <a href="{% url 'login' %}">Sign in</a> to comment!
         </p>
       {% endif %}
+
+
+
+
       <script src="{% static 'map_detail.js' %}"></script>
       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+      <script src="{% static "confirmation.js" %}"></script>
       <script src="{% static "vuedetail.js" %}"></script>
+
     </body>
   </html>
 {% endblock %}

@@ -1,37 +1,47 @@
-{% extends "base.html" %}
-{% block page_content %}
-  {% load crispy_forms_tags %}
-  {% load static %}
-  <div class="container">
-    <h1 class='mb-5 mt-5'>Tell us more about your restaurant !</h1>
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div class="form-group">
-        {{ form.name.label }}
-        <input type="text"
-               class="form-control"
-               name="name"
-               value="{{ restaurant.name }}">
-        {{ form.description.label }}
-        <input type="text"
-               class="form-control"
-               name="description"
-               value="{{ restaurant.description }}">
-        {{ form.address.label }}
-        <input type="text"
-               class="form-control"
-               name="address"
-               value="{{ restaurant.address }}">
-        {{ form.image.label }}
-        <div class="custom-file">
-          <input type="file"
-                 class="custom-file-input"
-                 name="image"
-                 value="{{ restaurant.image }}">
-          <label class="custom-file-label" for="{{ form.image.label }}">restaurant's image</label>
-        </div>
+{% extends "base.html" %} {% block page_content %} {% load crispy_forms_tags %}
+{% load static %}
+<div class="container">
+  <h1 class="mb-5 mt-5">Tell us more about your restaurant !</h1>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      {{ form.name.label }}
+      <input
+        type="text"
+        class="form-control mb-4"
+        name="name"
+        value="{{ restaurant.name }}"
+      />
+      {{ form.description.label }}
+      <input
+        type="text"
+        class="form-control mb-4"
+        name="description"
+        value="{{ restaurant.description }}"
+      />
+      {{ form.address.label }}
+      <input
+        type="text"
+        class="form-control mb-4"
+        name="address"
+        value="{{ restaurant.address }}"
+      />
+      {{ form.image.label }}
+      <div class="custom-file mb-4">
+        <input
+          type="file"
+          class="custom-file-input"
+          name="image"
+          value="{{ restaurant.image }}"
+        />
+        <label class="custom-file-label" for="{{ form.image.label }}"
+          >restaurant's image</label
+        >
       </div>
+    </div>
+    <div class="text-center">
       <input type="submit" value="Create Restaurant" class="btn btn-primary" />
-    </form>
-  </div>
+    </div>
+  </form>
+</div>
 {% endblock %}

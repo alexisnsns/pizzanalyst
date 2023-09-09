@@ -16,28 +16,28 @@
   </head> {% endcomment %}
   <body>
     <div class="container">
-      <h1>Update {{ restaurant.name|title }}</h1>
+      <h1 class= "mb-5 mt-5">Update {{ restaurant.name|title }}</h1>
       <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
           {{ form.name.label }}
           <input type="text"
-                 class="form-control"
+                 class="form-control mb-4"
                  name="name"
                  value="{{ restaurant.name }}">
           {{ form.description.label }}
           <input type="text"
-                 class="form-control"
+                 class="form-control mb-4"
                  name="description"
                  value="{{ restaurant.description }}">
           {{ form.address.label }}
           <input type="text"
-                 class="form-control"
+                 class="form-control mb-4"
                  name="address"
                  value="{{ restaurant.address }}">
           {% comment %} autocomplete="address-line1" to add to above field {% endcomment %}
           {{ form.image.label }}
-          <div class="custom-file">
+          <div class="custom-file  mb-4">
             <input type="file"
                    class="custom-file-input"
                    name="image"
@@ -45,9 +45,10 @@
             <label class="custom-file-label" for="{{ form.image.label }}">{{ restaurant.name }}'s image</label>
           </div>
         </div>
+        <div class="text-center">
+        <input type="submit" value="Update Restaurant" class="btn btn-primary" />
+        </div>
       </div>
-      <input type="submit" value="Update Restaurant" class="btn btn-primary" />
     </form>
-  </div>
 </body>
 {% endblock %}
