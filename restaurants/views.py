@@ -74,6 +74,7 @@ def restaurant_create(request):
         form = RestaurantForm(request.POST, request.FILES)
         if form.is_valid():
             restaurant = form.save(commit=False)
+            restaurant.address = restaurant.address.replace(",", "")
             restaurant.created_by = request.user
             restaurant.save()
             return redirect('restaurant_detail', pk=restaurant.pk)
@@ -121,7 +122,7 @@ def restaurant_update(request, pk):
     if request.method == 'POST':
         form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if form.is_valid():
-            restaurant.address = form.cleaned_data['address']
+            restaurant.address = restaurant.address.replace(",", "")
             form.save()
             return redirect('restaurant_detail', pk=pk)
     else:
