@@ -1,5 +1,4 @@
-{% extends "base.html" %} {% block page_content %} {% load crispy_forms_tags %}
-{% load static %}
+{% extends "base.html" %} {% block page_content %} {% load static %}
 <div class="container">
   <h1 class="mb-5 mt-5">Tell us more about your restaurant !</h1>
   <form method="POST" enctype="multipart/form-data">
@@ -12,21 +11,27 @@
         name="name"
         value="{{ restaurant.name }}"
       />
-      {{ form.description.label }}
+      {% if form.name.errors %}
+      <div class="text-danger">{{ form.name.errors }}</div>
+      {% endif %} {{ form.description.label }}
       <input
         type="text"
         class="form-control mb-4"
         name="description"
         value="{{ restaurant.description }}"
       />
-      {{ form.address.label }}
+      {% if form.description.errors %}
+      <div class="text-danger">{{ form.description.errors }}</div>
+      {% endif %} {{ form.address.label }}
       <input
         type="text"
         class="form-control mb-4"
         name="address"
         value="{{ restaurant.address }}"
       />
-      {{ form.image.label }}
+      {% if form.address.errors %}
+      <div class="text-danger">{{ form.address.errors }}</div>
+      {% endif %} {{ form.image.label }}
       <div class="custom-file mb-4">
         <input
           type="file"

@@ -36,9 +36,6 @@ class SearchView(ListView):
     template_name = 'restaurant_index.html'
     context_object_name = 'all_search_results'
 
-
-
-
     def get_queryset(self):
        result = super(SearchView, self).get_queryset()
        query = self.request.GET.get('search')
@@ -58,7 +55,7 @@ class SearchView(ListView):
         context['restaurants_addresses'] = [restaurant.address for restaurant in context['restaurants']]
         context['restaurants_names'] = [restaurant.name.capitalize() for restaurant in context['restaurants']]
         context['restaurants_indexes'] = [restaurant.id for restaurant in context['restaurants']]
-        
+
         return context
 
     def render_to_response(self, context, **response_kwargs):
@@ -70,10 +67,6 @@ class SearchView(ListView):
         )
 
 
-
-
-
-
 # RESTAURANT CREATE
 @login_required
 def restaurant_create(request):
@@ -83,7 +76,7 @@ def restaurant_create(request):
             restaurant = form.save(commit=False)
             restaurant.created_by = request.user
             restaurant.save()
-        return redirect('restaurant_detail', pk=restaurant.pk)
+            return redirect('restaurant_detail', pk=restaurant.pk)
     else:
         form = RestaurantForm()
     return render(request, 'restaurant_create.html', {'form': form})
@@ -128,7 +121,7 @@ def restaurant_update(request, pk):
     if request.method == 'POST':
         form = RestaurantForm(request.POST, request.FILES, instance=restaurant)
         if form.is_valid():
-            restaurant.address = form.cleaned_data['address']  # Update the address field directly
+            restaurant.address = form.cleaned_data['address']
             form.save()
             return redirect('restaurant_detail', pk=pk)
     else:
