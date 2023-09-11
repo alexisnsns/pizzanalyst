@@ -9,7 +9,7 @@ from django.views.generic import ListView
 
 # RESTAURANT INDEX
 def restaurant_index(request):
-    restaurants = Restaurant.objects.all()
+    restaurants = Restaurant.objects.all().order_by('name')
     restaurants_addresses = [restaurant.address for restaurant in restaurants]
     restaurants_names = [restaurant.name.capitalize() for restaurant in restaurants]
     restaurants_indexes = [restaurant.id for restaurant in restaurants]

@@ -1,25 +1,34 @@
-{% extends "base.html" %}
-{% block page_content %}
-  {% load crispy_forms_tags %}
+{% extends "base.html" %} {% block page_content %} {% load crispy_forms_tags %}
+<div class="container">
+  <h1 class="mb-5 mt-5">Typo? Changed your mind? Update your comment!</h1>
   <form method="POST" action="{% url 'comment_update' pk=form.instance.pk %}">
     {% csrf_token %}
     <div class="form-group">
       {{ form.body.label }}
-      <input type="text"
-             class="form-control"
-             name="body"
-             value="{{ comment.body }}" />
+      <input
+        type="text"
+        class="form-control mb-4"
+        name="body"
+        value="{{ comment.body }}"
+      />
       {{ form.cheapestslice.label }}
-      <input type="number"
-             class="form-control"
-             name="cheapestslice"
-             value="{{ comment.cheapestslice }}" />
+      <input
+        type="number"
+        class="form-control mb-4"
+        name="cheapestslice"
+        value="{{ comment.cheapestslice }}"
+      />
       {{ form.quality.label }}
-      <input type="number"
-             class="form-control"
-             name="quality"
-             value="{{ comment.quality }}" />
+      <input
+        type="number"
+        class="form-control mb-4"
+        name="quality"
+        value="{{ comment.quality }}"
+      />
     </div>
-    <input type="submit" value="Update Comment" class="btn btn-primary" />
+    <div class="text-center">
+      <input type="submit" value="Update Comment" class="btn btn-primary" />
+    </div>
   </form>
+</div>
 {% endblock %}

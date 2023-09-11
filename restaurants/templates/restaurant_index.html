@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
 {% block page_content %}
+{% load mathfilters %}
+
   <html>
     <body>
       <div class="row">
@@ -31,9 +33,14 @@
                       {% endif %}
                       <div class="card-body">
                         <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
+                        {% if restaurant.comments.last.cheapestslice %}
+                        <p class="text-center" style="font-size:12px"> <i>Rating: {{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</i></p>
+                        {% else %}
+                        <p class="text-center" style="font-size:12px"> <i>To be rated</i></p>
+                      {% endif %}
                         <p class="card-text text-justify overflow-hidden"
                            style="height: 5rem;
-                                  font-size:12px">{{ restaurant.description|title }}</p>
+                                  font-size:12px">{{ restaurant.description|capfirst }}</p>
                       </div>
                     </a>
                   </div>
@@ -53,9 +60,14 @@
                       {% endif %}
                       <div class="card-body">
                         <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
+                        {% if restaurant.comments.last.cheapestslice %}
+                        <p class="text-center" style="font-size:12px"> <i>Rating: {{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</i></p>
+                        {% else %}
+                        <p class="text-center" style="font-size:12px"> <i>To be rated</i></p>
+                      {% endif %}
                         <p class="card-text text-justify overflow-hidden"
                            style="height: 5rem;
-                                  font-size:12px">{{ restaurant.description|title }}</p>
+                                  font-size:12px">{{ restaurant.description|capfirst }}</p>
                       </div>
                     </a>
                   </div>
@@ -80,7 +92,7 @@
                 <div class="popup-content" @click.stop>
                   <span class="close-icon" @click="closePopup">×</span>
                   <p>
-                    "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+                    The idea with this website was to have a simple app that would allow me to store and rate all the pizzas I tried during my stay in New Haven, CT, so that I would be able to decide which one was the very best at the end of my stay. Don't hesitate to fork the repo if you want to build yourself a similar website!
                   </p>
                 </div>
               </div>
