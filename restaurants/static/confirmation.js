@@ -1,19 +1,20 @@
 new Vue({
-  el: '#confirmation',
+  el: "#confirmation",
   data: {
-      PopupStatus: false,
+    PopupStatus: false,
   },
   methods: {
-      togglePopup() {
-          this.PopupStatus = true;
-      },
-      closePopup() {
-          this.PopupStatus = false;
-      },
-      closePopupOutside(event) {
-        if (!event.target.closest('.popup-content')) {
-            this.closePopup();
-        }
+    togglePopup() {
+      this.PopupStatus = true;
+      console.log("clicked on restaurant delete");
+    },
+    closePopup() {
+      this.PopupStatus = false;
+    },
+    closePopupOutside(event) {
+      if (!event.target.closest(".popup-content")) {
+        this.closePopup();
       }
+    },
   },
 });
