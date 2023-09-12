@@ -225,7 +225,7 @@ a:active {
   display: block;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .card {
     width: 100%;
   }
@@ -234,7 +234,11 @@ a:active {
     margin-bottom: 2em;
   }
 
-  #map {
+  .map-index {
     display: none;
+  }
+
+  .map-detail {
+    margin-bottom: 3em;
   }
 }
