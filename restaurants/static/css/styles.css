@@ -209,8 +209,7 @@ a:active {
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: rgba(0, 0, 0, 0.5); Semi-transparent background */
-  z-index: 999; /* Ensures the popup appears above other content */
+  z-index: 999;
 }
 
 .close-comment-icon {
@@ -225,20 +224,12 @@ a:active {
   display: block;
 }
 
-@media (max-width: 1000px) {
-  .card {
+@media screen and (max-width: 1000px) {
+  .card-index {
     width: 100%;
   }
 
-  .detail-image {
-    margin-bottom: 2em;
-  }
-
-  .map-index {
-    display: none;
-  }
-
-  .map-detail {
-    margin-bottom: 3em;
+  .story {
+    margin-bottom: 10px;
   }
 }

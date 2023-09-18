@@ -5,8 +5,9 @@
 
   <html>
     <body>
+      <div class="container">
       <div class="row">
-        <div class="col-sm">
+        <div class="col-lg-6 col-md-12 col-sm-12">
           <form method="GET" action="{% url 'search' %}">
             <div class="input-group">
               <input class="form-control"
@@ -18,7 +19,7 @@
               </div>
             </div>
           </form>
-          <div class="row row-cols-1 row-cols-md-3">
+          <div class="row row-cols-md-3 row-cols-sm-1 row-cols-1">
             {% if all_search_results %}
               {% for restaurant in all_search_results %}
                 <div class="col mb-3">
@@ -85,7 +86,7 @@
               </p>
             {% endif %}
             <div id="app">
-              <button class="btn btn-secondary" @click="togglePopup">Or read our story...</button>
+              <button class="btn btn-secondary story" @click="togglePopup">Or read our story...</button>
               <div class="popup"
                    :class="{ 'show': PopupStatus }"
                    @click="closePopupOutside">
@@ -99,7 +100,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm">
+        <div class="col-lg-6 col-md-0 col-sm-0">
           <div id="map"
                style="height:96vh"
                class="map-index"
@@ -111,6 +112,7 @@
           <script src="{% static "map_index.js" %}"></script>
         </div>
       </div>
+    </div>
       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
       <script src="{% static "vue.js" %}"></script>
     </body>
