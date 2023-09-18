@@ -237,6 +237,11 @@ a:active {
     display: none;
   }
 
+  .map-detail {
+    margin-left: 25%;
+    margin-bottom: 1em;
+  }
+
   .footer {
     position: relative;
     width: 80%;
@@ -245,5 +250,17 @@ a:active {
 
   .popup-content {
     width: 80%;
+  }
+
+  h5 {
+    text-align: center;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .detail-image {
+    margin-bottom: 1em;
   }
 }
