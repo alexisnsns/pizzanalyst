@@ -242,4 +242,8 @@ a:active {
     width: 80%;
     left: 10%;
   }
+
+  .popup-content {
+    width: 80%;
+  }
 }
