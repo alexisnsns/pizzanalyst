@@ -19,10 +19,10 @@
               </div>
             </div>
           </form>
-          <div class="row row-cols-md-3 row-cols-sm-1 row-cols-1">
+          <div class="row row-cols-sm-3  row-cols-md-3 row-cols-lg-3">
             {% if all_search_results %}
               {% for restaurant in all_search_results %}
-                <div class="col mb-3">
+                <div class="mb-3">
                   <div class="card card-index">
                     <a href="{% url 'restaurant_detail' restaurant.pk %}">
                       {% if restaurant.image.url %}
@@ -49,7 +49,7 @@
               {% endfor %}
             {% else %}
               {% for restaurant in restaurants %}
-                <div class="col mb-3">
+                <div class=" mb-3">
                   <div class="card card-index">
                     <a href="{% url 'restaurant_detail' restaurant.pk %}">
                       {% if restaurant.image.url %}
