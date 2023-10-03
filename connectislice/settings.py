@@ -8,14 +8,13 @@ import cloudinary.api
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u0j*#$8arpzj(18wj#$9u8u8d5=rk=xp32i!f*ls0i2q+_$p(h'
+SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['connectislice-a773b07f800c.herokuapp.com', 'localhost', 'www.anotherproject.me']
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -110,7 +109,6 @@ STATICFILES_FINDERS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 
 
-
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'restaurants', 'templates')
 
@@ -118,11 +116,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = ['https://www.anotherproject.me']
 
 
-
-
-
-
-load_dotenv()
 
 cloudinary.config(
     cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
