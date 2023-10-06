@@ -3,9 +3,6 @@
 venv/
 *.pyc
 
-# Ignore database files
-db.sqlite3
-
 # Ignore secret settings files (e.g., settings_local.py)
 *.secret
 
