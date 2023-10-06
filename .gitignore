@@ -1,3 +1,20 @@
+
+# Ignore virtual environment files
+venv/
+*.pyc
+
+# Ignore database files
+db.sqlite3
+
+# Ignore secret settings files (e.g., settings_local.py)
+*.secret
+
+# Ignore static and media files (if you're using a CDN or separate storage)
+/static/
+/media/
+
+.DS_Store
+mainapp/.DS_Store
 .env
-.DS_store
-**/.DS_Store
+
+__pycache__/

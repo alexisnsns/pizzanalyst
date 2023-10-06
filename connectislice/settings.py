@@ -5,6 +5,7 @@ import environ
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -68,13 +69,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'connectislice.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(default=DATABASE_URL)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 # Password validation: uncomment for prod !
 AUTH_PASSWORD_VALIDATORS = [
     # {
