@@ -1,4 +1,4 @@
-# connectislice
+# Pizzanalyst
 
 
-A Django app which allows you to search for pizzerias in Connecticut.
+A Django app which allows you to create your own pizzeria wiki

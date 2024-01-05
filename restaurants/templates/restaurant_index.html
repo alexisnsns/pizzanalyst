@@ -34,8 +34,8 @@
                       {% endif %}
                       <div class="card-body">
                         <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
-                        {% if restaurant.comments.last.cheapestslice %}
-                        <p class="text-center" style="font-size:12px"> <i>Rating: {{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</i></p>
+                        {% if restaurant.comments.last.margharitaindex %}
+                        <p class="text-center" style="font-size:12px"> <i>Rating: {{ restaurant.average_quality|div:restaurant.comments.last.margharitaindex|floatformat:2 }}</i></p>
                         {% else %}
                         <p class="text-center" style="font-size:12px"> <i>To be rated</i></p>
                       {% endif %}
@@ -61,8 +61,8 @@
                       {% endif %}
                       <div class="card-body">
                         <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
-                        {% if restaurant.comments.last.cheapestslice %}
-                        <p class="text-center" style="font-size:12px"> <i>Rating: {{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</i></p>
+                        {% if restaurant.comments.last.margharitaindex %}
+                        <p class="text-center" style="font-size:12px"> <i>Rating: {{ restaurant.average_quality|div:restaurant.comments.last.margharitaindex|floatformat:2 }}</i></p>
                         {% else %}
                         <p class="text-center" style="font-size:12px"> <i>To be rated</i></p>
                       {% endif %}
@@ -82,7 +82,7 @@
             {% else %}
               <p>
                 <a href="{% url 'register' %}">Sign up</a> or <a href="{% url 'login' %}">Sign in</a>
-                to create a restaurant!
+                to rate a restaurant!
               </p>
             {% endif %}
             <div id="app">

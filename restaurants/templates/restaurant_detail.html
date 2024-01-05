@@ -38,13 +38,13 @@
                data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"></div>
         </div>
         <div class="col-md-4">
-          <h5>Cheapest slice (last reported):</h5>
-          <p>${{ restaurant.comments.last.cheapestslice }}</p>
+          <h5>Margharita Index (last reported):</h5>
+          <p>${{ restaurant.comments.last.margharitaindex }}</p>
           <h5>User average rating:</h5>
           <p>{{ restaurant.average_quality }} / 5</p>
           <h5>Bang for buck:</h5>
-          {% if restaurant.comments.last.cheapestslice %}
-            <p>{{ restaurant.average_quality|div:restaurant.comments.last.cheapestslice|floatformat:2 }}</p>
+          {% if restaurant.comments.last.margharitaindex %}
+            <p>{{ restaurant.average_quality|div:restaurant.comments.last.margharitaindex|floatformat:2 }}</p>
           {% endif %}
           <h5>Created by:</h5>
           <p>{{ restaurant.created_by|title }}</p>
@@ -90,7 +90,7 @@
                     <div class="card-body">
                       <h5 class="card-title">{{ comment.created_by|title }}</h5>
                       <p class="card-text"><b>{{ comment.body }}</b></p>
-                      <p class="card-text">Cheapest slice: {{ comment.cheapestslice }} $</p>
+                      <p class="card-text">Margharita Index: {{ comment.margharitaindex }} $</p>
                       <p class="card-text">Rating: {{ comment.quality }}/5</p>
                       <p class="card-text">Slice tasted on: {{ comment.created|date:"n/j/Y" }}</p>
                       {% comment %} UPDATE / DELETE COMMENT {% endcomment %}
@@ -149,7 +149,7 @@
                     <option value="4">4</option>
                     <option value="5">5</option>
                   </select>
-                {% elif field.name == 'cheapestslice' %}
+                {% elif field.name == 'margharitaindex' %}
                   <select class="form-control" name="{{ field.name }}" required>
                     <option value="1">Less than $1</option>
                     <option value="2">Between $2 and $3</option>
@@ -173,9 +173,6 @@
           <a href="{% url 'login' %}">Sign in</a> to comment!
         </p>
       {% endif %}
-
-
-
 
       <script src="{% static 'map_detail.js' %}"></script>
       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>

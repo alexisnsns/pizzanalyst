@@ -1,26 +1,27 @@
-{% load static %}
-
-
-{% block page_content %}
+{% load static %} {% block page_content %}
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <a class="navbar-brand" href="/">
-      <img src="{% static 'logo.jpg' %}" alt="logo">
+      <img src="{% static 'logo.jpg' %}" alt="logo" />
     </a>
     <div class="nav-item-title">
       <a href="/">
-        <h2>Connectislice</h2>
+        <h2>Pizzanalyst</h2>
       </a>
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <p><a href="{% url 'logout' %}"  class='px-4'>Logout</a></p>
+          <p><a href="{% url 'logout' %}" class="px-4">Logout</a></p>
         </li>
         {% else %}
         <li class="nav-item">
-          <a href="{% url 'register' %}" class="btn btn-outline-primary btn-sign-up">Sign up</a>
+          <a
+            href="{% url 'register' %}"
+            class="btn btn-outline-primary btn-sign-up"
+            >Sign up</a
+          >
         </li>
         <li class="nav-item">
           <a href="{% url 'login' %}" class="btn btn-flat btn-login">Sign in</a>

@@ -27,7 +27,7 @@ class Restaurant(models.Model):
 class Comment(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE, related_name='comments')
     body = models.TextField()
-    cheapestslice = models.FloatField(default=0, validators=[MinValueValidator(0)])
+    margharitaindex = models.FloatField(default=0, validators=[MinValueValidator(0)])
     quality = models.IntegerField(default=0, validators=[MinValueValidator(0),MaxValueValidator(5)])
     created = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE,  default=1)

@@ -15,13 +15,12 @@ class RestaurantForm(forms.ModelForm):
             'image': 'You can add a picture:'
         }
 
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ['body', 'cheapestslice', 'quality']
+        fields = ['body', 'margharitaindex', 'quality']
         labels = {
             'body': 'What did you think about this restaurant?',
-            'cheapestslice': 'What was the price of the cheapest slice in this restaurant?',
+            'margharitaindex': 'What was the price of the most basic pizza in this restaurant?',
             'quality': 'Rate the quality of your experience on a one to five scale (1 being the worst quality):',
         }
