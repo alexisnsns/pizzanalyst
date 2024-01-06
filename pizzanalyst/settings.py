@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['pizzanalyst-a773b07f800c.herokuapp.com', 'localhost', 'www.anotherproject.me']
+ALLOWED_HOSTS = ['pizzanalyst-a773b07f800c.herokuapp.com', 'localhost', 'www.pizzanalyst.xyz']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
