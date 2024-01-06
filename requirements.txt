@@ -13,3 +13,6 @@ fontawesomefree
 django-environ
 dj-database-url
 psycopg2-binary>=2.8,<3.0
+gunicorn
+whitenoise
+django-heroku
