@@ -30,7 +30,7 @@
                              src="{{ restaurant.image.url }}"
                              alt="restaurant image">
                       {% else %}
-                        <img class="card-img-top" src="{% static 'pizza.png' %}" alt="Restaurant default image">
+                        <img class="card-img-top" src="{% static 'img/pizza.png' %}" alt="Restaurant default image">
                       {% endif %}
                       <div class="card-body">
                         <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
@@ -57,7 +57,7 @@
                              src="{{ restaurant.image.url }}"
                              alt="restaurant image">
                       {% else %}
-                        <img class="card-img-top" src="{% static 'pizza.png' %}" alt="Restaurant default image">
+                        <img class="card-img-top" src="{% static 'img/pizza.png' %}" alt="Restaurant default image">
                       {% endif %}
                       <div class="card-body">
                         <h5 class="card-title text-center overflow-hidden" style="height: 22px;">{{ restaurant.name|title }}</h5>
@@ -105,16 +105,16 @@
                style="height:96vh"
                class="map-index"
                data-restaurants-names="{{ restaurants_names }}"
-               data-favicon-url="{% static "favicon.ico" %}"
+               data-favicon-url="{% static "img/favicon.ico" %}"
                data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"
                data-restaurants-addresses="{{ restaurants_addresses }}"
                data-restaurants-indexes="{{ restaurants_indexes }}"></div>
-          <script src="{% static "map_index.js" %}"></script>
+          <script src="{% static "js/map_index.js" %}"></script>
         </div>
       </div>
     </div>
       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-      <script src="{% static "vue.js" %}"></script>
+      <script src="{% static "js/vue.js" %}"></script>
     </body>
   </html>
 {% endblock %}

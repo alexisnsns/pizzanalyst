@@ -15,7 +15,7 @@
                  width="100%"
                  class="detail-image" />
           {% else %}
-            <img src="{% static 'pizza.png' %}"
+            <img src="{% static 'img/pizza.png' %}"
                  alt="My image"
                  width="100%"
                  class="detail-image" />
@@ -34,7 +34,7 @@
                data-restaurant-address="{{ restaurant.address }}"
                data-restaurant-description="{{ restaurant.description }}"
                data-restaurant-name="{{ restaurant.name }}"
-               data-favicon-url="{% static 'favicon.ico' %}"
+               data-favicon-url="{% static 'img/favicon.ico' %}"
                data-mapbox-access-token="{{ MAPBOX_ACCESS_TOKEN }}"></div>
         </div>
         <div class="col-md-4">
@@ -168,10 +168,10 @@
         </p>
       {% endif %}
 
-      <script src="{% static 'map_detail.js' %}"></script>
+      <script src="{% static 'js/map_detail.js' %}"></script>
       <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-      <script src="{% static "vuedetail.js" %}"></script>
-      <script src="{% static "confirmation.js" %}"></script>
+      <script src="{% static 'js/vuedetail.js' %}"></script>
+      <script src="{% static 'js/confirmation.js' %}"></script>
 
     </body>
   </html>
