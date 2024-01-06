@@ -1,23 +1,11 @@
-
-# Ignore virtual environment files
 venv/
 *.pyc
-
-# Ignore secret settings files (e.g., settings_local.py)
 *.secret
-
-# Ignore static and media files (if you're using a CDN or separate storage)
-/media/
-
 .DS_Store
 mainapp/.DS_Store
 .env
-
 __pycache__/
 *.py[cod]
-
 .vscode/
 node_modules/
-
 db.sqlite3
-gaa
