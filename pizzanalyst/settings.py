@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['connectislice-a773b07f800c.herokuapp.com', 'localhost', 'www.anotherproject.me']
+ALLOWED_HOSTS = ['pizzanalyst-a773b07f800c.herokuapp.com', 'localhost', 'www.anotherproject.me']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -48,12 +48,12 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-ROOT_URLCONF = 'connectislice.urls'
+ROOT_URLCONF = 'pizzanalyst.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ["connectislice/templates/"],
+        'DIRS': ["pizzanalyst/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'connectislice.wsgi.application'
+WSGI_APPLICATION = 'pizzanalyst.wsgi.application'
 
 
 DATABASE_URL = os.environ.get('DATABASE_URL')
