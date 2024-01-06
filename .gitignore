@@ -7,7 +7,6 @@ venv/
 *.secret
 
 # Ignore static and media files (if you're using a CDN or separate storage)
-/static/
 /media/
 
 .DS_Store
@@ -16,3 +15,5 @@ mainapp/.DS_Store
 
 __pycache__/
 *.py[cod]
+
+/staticfiles/
