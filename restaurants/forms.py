@@ -21,6 +21,6 @@ class CommentForm(forms.ModelForm):
         fields = ['body', 'margharitaindex', 'quality']
         labels = {
             'body': 'What did you think about this restaurant?',
-            'margharitaindex': 'What was the price of the most basic pizza in this restaurant?',
-            'quality': 'Rate the quality of your experience on a one to five scale (1 being the worst quality):',
+            'margharitaindex': 'What was the price in USD of the most basic pizza in this restaurant? (our margharita index)',
+            'quality': 'Rate the quality of your experience on a one to five scale (1 being the worst pizza you ever had):',
         }

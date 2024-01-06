@@ -150,13 +150,7 @@
                     <option value="5">5</option>
                   </select>
                 {% elif field.name == 'margharitaindex' %}
-                  <select class="form-control" name="{{ field.name }}" required>
-                    <option value="1">Less than $1</option>
-                    <option value="2">Between $2 and $3</option>
-                    <option value="3">Between $3 and $4</option>
-                    <option value="4">Between $4 and $5</option>
-                    <option value="5">More than $5</option>
-                  </select>
+                <input type="number" class="form-control" name="{{ field.name }}" required min="1" step="0.01">
                 {% else %}
                   {{ field|as_crispy_field }}
                 {% endif %}
